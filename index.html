@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>روائع الفاكهة | منيو الفواكه المجففة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f3ead9;
+    --card: #fbf6ec;
+    --card-edge: #e3d3b4;
+    --terracotta: #cb6a3e;
+    --terracotta-deep: #b45530;
+    --olive: #7c8a4f;
+    --olive-deep: #5f6b3a;
+    --brown: #6b4226;
+    --brown-deep: #4a2d18;
+    --muted: #8a7458;
+    --whatsapp: #25D366;
+    --whatsapp-deep: #128C7E;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -5%, rgba(203,106,62,0.10), transparent),
+      var(--bg);
+    color: var(--brown-deep);
+    font-family: 'Tajawal', sans-serif;
+    min-height:100vh;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image: radial-gradient(rgba(107,66,38,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    position:relative;
+    padding: 56px 24px 40px;
+    text-align:center;
+    z-index:1;
+  }
+  .logo{
+    width: 128px; height:128px;
+    margin: 0 auto 18px;
+    border-radius:50%;
+    overflow:hidden;
+    background: var(--card);
+    box-shadow: 0 8px 24px rgba(107,66,38,0.18), 0 0 0 5px var(--card), 0 0 0 6px var(--card-edge);
+  }
+  .logo img{ width:100%; height:100%; object-fit:cover; }
+
+  .eyebrow{
+    font-family:'Cairo', sans-serif;
+    letter-spacing:4px;
+    font-size:12px;
+    color: var(--olive-deep);
+    text-transform:uppercase;
+    display:inline-block;
+    border:1px solid rgba(124,138,79,0.4);
+    background: rgba(124,138,79,0.08);
+    padding:6px 18px;
+    border-radius:999px;
+    margin-bottom:20px;
+  }
+  h1{
+    font-family:'Lalezar', sans-serif;
+    font-weight:400;
+    font-size: clamp(38px, 8vw, 66px);
+    color: var(--terracotta-deep);
+    line-height:1.15;
+  }
+  header p.sub{
+    margin-top:12px;
+    color: var(--muted);
+    font-size: clamp(14px, 2vw, 17px);
+    max-width:480px;
+    margin-inline:auto;
+  }
+
+  .header-order-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:22px;
+    background: linear-gradient(160deg, var(--whatsapp), var(--whatsapp-deep));
+    color:#fff;
+    text-decoration:none;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(18,140,126,0.35);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .header-order-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(18,140,126,0.45);
+  }
+  .header-order-btn svg{ width:20px; height:20px; fill:#fff; flex-shrink:0; }
+
+  main{
+    position:relative; z-index:1;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 10px 20px 60px;
+  }
+
+  .divider{
+    display:flex; align-items:center; gap:14px;
+    margin: 44px 4px 24px;
+  }
+  .divider .line{
+    flex:1; height:1px;
+    background: repeating-linear-gradient(90deg, rgba(203,106,62,0.45) 0 8px, transparent 8px 16px);
+  }
+  .divider .label{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    color: var(--terracotta-deep);
+    letter-spacing:1px;
+    white-space:nowrap;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 18px;
+  }
+
+  .card{
+    background: var(--card);
+    border:1px solid var(--card-edge);
+    border-radius: 18px;
+    overflow:hidden;
+    position:relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 26px rgba(107,66,38,0.16);
+  }
+
+  .photo-wrap{
+    width:100%; height:150px;
+    position:relative;
+    overflow:hidden;
+    background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
+  }
+  .photo-wrap img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .photo-wrap .placeholder{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px;
+    color: var(--muted);
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    text-align:center;
+    padding: 0 10px;
+  }
+  .photo-wrap .placeholder .icon{
+    font-size:26px;
+    opacity:0.55;
+  }
+  .photo-wrap img:not([src=""]):not([data-broken]) ~ .placeholder{ display:none; }
+
+  .card-body{ padding: 16px 18px 18px; }
+
+  .fruit-name{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size: 18px;
+    color: var(--brown-deep);
+    margin-bottom:4px;
+  }
+  .fruit-weight{
+    font-size:12.5px;
+    color: var(--muted);
+    margin-bottom:14px;
+  }
+
+  .price-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .price-badge{
+    font-family:'Lalezar', sans-serif;
+    font-size:21px;
+    color:#fbf6ec;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    padding: 4px 15px 5px;
+    border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(180,85,48,0.35);
+  }
+  .price-badge .cur{
+    font-family:'Cairo', sans-serif;
+    font-weight:600;
+    font-size:11px;
+    margin-inline-start:3px;
+  }
+  .per-g{
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    color: var(--muted);
+  }
+
+  .order-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    width:100%;
+    background: rgba(37,211,102,0.12);
+    border: 1px solid rgba(37,211,102,0.4);
+    color: var(--whatsapp-deep);
+    text-decoration:none;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding: 9px 10px;
+    border-radius: 999px;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .order-btn:hover{
+    background: rgba(37,211,102,0.22);
+    transform: translateY(-1px);
+  }
+  .order-btn svg{ width:15px; height:15px; fill: var(--whatsapp-deep); flex-shrink:0; }
+
+  .special-tag{
+    position:absolute; top:12px; left:12px;
+    z-index:2;
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color: #fff;
+    background: rgba(74,45,24,0.55);
+    padding: 4px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(2px);
+  }
+
+  .howto{
+    max-width: 620px;
+    margin: 10px auto 0;
+    background: rgba(124,138,79,0.08);
+    border: 1px dashed rgba(124,138,79,0.4);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family:'Cairo', sans-serif;
+    font-size: 13px;
+    color: var(--olive-deep);
+    line-height: 2;
+  }
+  .howto b{ color: var(--brown-deep); }
+  .howto code{
+    background: rgba(107,66,38,0.08);
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-family: monospace;
+    unicode-bidi: plaintext;
+  }
+
+  footer{
+    position:relative; z-index:1;
+    text-align:center;
+    padding: 10px 20px 100px;
+    color: var(--muted);
+    font-family:'Cairo', sans-serif;
+    font-size: 13px;
+  }
+  footer .note{
+    max-width:480px;
+    margin:0 auto 10px;
+    line-height:1.9;
+  }
+
+  .footer-order-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin: 14px 0 20px;
+    background: linear-gradient(160deg, var(--whatsapp), var(--whatsapp-deep));
+    color:#fff;
+    text-decoration:none;
+    font-weight:800;
+    font-size:15px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(18,140,126,0.35);
+  }
+  .footer-order-btn svg{ width:19px; height:19px; fill:#fff; }
+
+  /* الزر العائم */
+  .float-whatsapp{
+    position: fixed;
+    bottom: 22px;
+    left: 22px;
+    z-index: 50;
+    width: 60px; height:60px;
+    border-radius:50%;
+    background: linear-gradient(160deg, var(--whatsapp), var(--whatsapp-deep));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 22px rgba(18,140,126,0.45);
+    text-decoration:none;
+    animation: floatPulse 2.4s ease-in-out infinite;
+  }
+  .float-whatsapp svg{ width:30px; height:30px; fill:#fff; }
+  @keyframes floatPulse{
+    0%, 100%{ box-shadow: 0 8px 22px rgba(18,140,126,0.45); }
+    50%{ box-shadow: 0 8px 26px rgba(18,140,126,0.7), 0 0 0 8px rgba(37,211,102,0.12); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+    .float-whatsapp{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="9333c9bc733195a2a7289f8572891d75~tplv-tiktokx-cropcenter_1080_1080.jpeg" alt="روائع الفاكهة"></div>
+  <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
+  <h1>روائع الفاكهة</h1>
+  <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
+  <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+    اطلب الآن عبر واتساب
+  </a>
+</header>
+
+<main>
+
+  <div class="howto">
+    <b>اختار نوع الفاكهة الذي تفضله وإعلامنا به في واتساب. نتمنى لك تجربة لذيذة!</b> 
+  </div>
+
+  <div class="divider"><div class="line"></div><div class="label">الفواكه المجففة</div><div class="line"></div></div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="d11911d7-0d3b-4bf4-8746-d38d4d7f355d-1000x1000-Loq3ejrGDBmsFJHDXFxQ7ApiGE3Bxem7a2MZ5Nmr.webp" alt="مانجو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🥭</span>images/mango.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">مانجو كبير</div>
+        <div class="fruit-weight">30 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D8%A7%D9%86%D8%AC%D9%88%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="shopping.webp" alt="تنين" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🐉</span>images/dragonfruit.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">تنين (دراغون فروت) كبير</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%86%D9%8A%D9%86%20%28%D8%AF%D8%B1%D8%A7%D8%BA%D9%88%D9%86%20%D9%81%D8%B1%D9%88%D8%AA%29%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="7c4618c8-1d87-4f90-9bbd-7e3b05c566a4.jpg" alt="أناناس" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍍</span>images/pineapple.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">أناناس كبير</div>
+        <div class="fruit-weight">40 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%A3%D9%86%D8%A7%D9%86%D8%A7%D8%B3%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="92c60d86-60ce-4710-a688-fb6b648a0c74-1000x1000-DMR2PT2RHN9ut7r1dS2Q0WLX3cvKjR1U9I54OgKR.webp" alt="توت" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🫐</span>images/blackberry.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">توت كبير</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%88%D8%AA%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="2cf0f543-04f2-4e4a-9fb2-74d95525835f-500x500-L1yCeGhmDUl9dEL9wKGGVgUD0ZuNNQw14LKZyVeP.webp" alt="كيوي" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🥝</span>images/kiwi.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">كيوي</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%83%D9%8A%D9%88%D9%8A" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="3296e463-8570-40f6-bf97-43e2827026c8.jpg" alt="فروله" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍓</span>images/strawberry.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">فروله</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%81%D8%B1%D9%88%D9%84%D9%87" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="da41194e-dc86-4e02-bc08-117b72ba3fe7-thumbnail-1000x1000-70.webp" alt="شمندر" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🔴</span>images/beetroot.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">شمندر</div>
+        <div class="fruit-weight">45 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%B4%D9%85%D9%86%D8%AF%D8%B1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="Customized-Freeze-Dried-Honey-Passion-Fruit-100-Fresh-Frozen-Passion-Fruit-Great-for-Beverages-and-Syrups.webp" alt="عطف" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🟡</span>images/atf.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">عطف</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B7%D9%81" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="c9d63556-8276-45fc-ab01-9f0e0a10edec-thumbnail-770x770-70.webp" alt="موز" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍌</span>images/banana.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">موز</div>
+        <div class="fruit-weight">40 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D9%88%D8%B2" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="ab1eb5e0-ffdc-40d3-b092-f93512e2485c-1000x1000-kfpL0NuGKOWGbFcIwOvRsGWVHakQOyS5J0jwYaP7.webp" alt="خوخ" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍑</span>images/peach.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">خوخ</div>
+        <div class="fruit-weight">60 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AE%D9%88%D8%AE" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="noOzQAVsLmH7Lohn0PFw2TRzlWi3NmA5S7cZPQws.webp" alt="برتقال" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍊</span>images/orange.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">برتقال</div>
+        <div class="fruit-weight">30 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%A8%D8%B1%D8%AA%D9%82%D8%A7%D9%84" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="photo-wrap">
+        <img src="0d6c0f7b-832f-49ab-8d4e-ddee82370fa8-800x1000-HZSSKkrBTYZedQl2Ap0VoqT5576nSCxlM4hmOEo9.webp" alt="تين مجفف" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🟣</span>images/fig.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">تين مجفف</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%8A%D9%86%20%D9%85%D8%AC%D9%81%D9%81" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"><div class="line"></div><div class="label">تشكيلة خاصة وإضافات</div><div class="line"></div></div>
+
+  <div class="grid">
+
+    <div class="card">
+      <span class="special-tag">الأكثر تنوعًا</span>
+      <div class="photo-wrap">
+        <img src="51Wo-rbxqhL._AC_UF894,1000_QL80_.jpg" alt="مشكل فواكه" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍇</span>images/mixed.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">مشكل فواكه</div>
+        <div class="fruit-weight">50 غرام</div>
+        <div class="price-row"><div class="price-badge">25<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D8%B4%D9%83%D9%84%20%D9%81%D9%88%D8%A7%D9%83%D9%87" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="special-tag">إضافة</span>
+      <div class="photo-wrap">
+        <img src="images (1).jpg" alt="صوص شوكولاتة نوتيلا" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍫</span>images/nutella.jpg</div>
+      </div>
+      <div class="card-body">
+        <div class="fruit-name">صوص شوكولاتة نوتيلا</div>
+        <div class="fruit-weight">يُقدَّم كإضافة</div>
+        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div></div>
+        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A3%D8%B6%D9%8A%D9%81%20%D8%B5%D9%88%D8%B5%20%D9%86%D9%88%D8%AA%D9%8A%D9%84%D8%A7" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          اطلب
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="note">جميع الأصناف فواكه مجففة طبيعية تُباع حسب الوزن الموضّح لكل صنف. الأسعار قابلة للتغيير دون إشعار مسبق.</p>
+  <a class="footer-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+    راسلنا واطلب الآن
+  </a>
+  <p>🍑 🥭 🍓</p>
+</footer>
+
+<a class="float-whatsapp" href="https://wa.me/966579705068" target="_blank" rel="noopener" aria-label="اطلب عبر واتساب">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+</a>
+
+</body>
+</html>
