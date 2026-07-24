@@ -150,7 +150,8 @@
   }
 
   .photo-wrap{
-    width:100%; height:150px;
+    width:100%;
+    aspect-ratio: 1 / 1;
     position:relative;
     overflow:hidden;
     background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
@@ -158,6 +159,7 @@
   .photo-wrap img{
     width:100%; height:100%;
     object-fit:cover;
+    object-position:center;
     display:block;
   }
   .photo-wrap .placeholder{
@@ -218,28 +220,33 @@
     color: var(--muted);
   }
 
-  .order-btn{
+  .add-btn{
     display:flex;
     align-items:center;
     justify-content:center;
     gap:7px;
     width:100%;
-    background: rgba(37,211,102,0.12);
-    border: 1px solid rgba(37,211,102,0.4);
-    color: var(--whatsapp-deep);
-    text-decoration:none;
+    background: rgba(203,106,62,0.10);
+    border: 1px solid rgba(203,106,62,0.45);
+    color: var(--terracotta-deep);
     font-family:'Cairo', sans-serif;
     font-weight:700;
     font-size:13px;
     padding: 9px 10px;
     border-radius: 999px;
+    cursor:pointer;
     transition: background .2s ease, transform .2s ease;
   }
-  .order-btn:hover{
-    background: rgba(37,211,102,0.22);
+  .add-btn:hover{
+    background: rgba(203,106,62,0.2);
     transform: translateY(-1px);
   }
-  .order-btn svg{ width:15px; height:15px; fill: var(--whatsapp-deep); flex-shrink:0; }
+  .add-btn.just-added{
+    background: rgba(37,211,102,0.18);
+    border-color: rgba(37,211,102,0.5);
+    color: var(--whatsapp-deep);
+  }
+  .add-btn svg{ width:15px; height:15px; fill:currentColor; flex-shrink:0; }
 
   .special-tag{
     position:absolute; top:12px; left:12px;
@@ -278,7 +285,7 @@
   footer{
     position:relative; z-index:1;
     text-align:center;
-    padding: 10px 20px 100px;
+    padding: 10px 20px 110px;
     color: var(--muted);
     font-family:'Cairo', sans-serif;
     font-size: 13px;
@@ -305,33 +312,420 @@
   }
   .footer-order-btn svg{ width:19px; height:19px; fill:#fff; }
 
-  /* الزر العائم */
-  .float-whatsapp{
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+
+  /* بطاقات المنتجات المميزة / التفاعلية */
+  .feature-card{
+    background: linear-gradient(180deg, var(--card), #f7f0dd);
+    border: 1.5px solid var(--terracotta);
+    border-radius: 20px;
+    overflow:hidden;
+    position:relative;
+    box-shadow: 0 10px 30px rgba(180,85,48,0.14);
+    margin-bottom: 22px;
+  }
+  .feature-card .new-badge{
+    position:absolute; top:14px; left:14px;
+    z-index:2;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:11.5px;
+    color:#fff;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    padding: 5px 13px;
+    border-radius:999px;
+    box-shadow: 0 3px 10px rgba(180,85,48,0.4);
+  }
+  .feature-card .feature-photo{
+    width:100%;
+    aspect-ratio: 16 / 9;
+    position:relative;
+    overflow:hidden;
+    background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
+  }
+  .feature-card .feature-photo img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+  .feature-card .feature-photo .placeholder{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px; color: var(--muted);
+    font-family:'Cairo', sans-serif; font-size:12px; text-align:center; padding:0 10px;
+  }
+  .feature-card .feature-photo .placeholder .icon{ font-size:32px; opacity:0.55; }
+  .feature-card .feature-photo img:not([src=""]):not([data-broken]) ~ .placeholder{ display:none; }
+
+  .feature-body{ padding: 20px 22px 24px; }
+  .feature-title{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size: 21px;
+    color: var(--brown-deep);
+    margin-bottom:6px;
+  }
+  .feature-desc{
+    font-size:13.5px;
+    color: var(--muted);
+    line-height:1.8;
+    margin-bottom:14px;
+  }
+  .feature-price-row{
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .feature-price-row .price-badge{
+    font-family:'Lalezar', sans-serif;
+    font-size:22px;
+    color:#fbf6ec;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    padding: 5px 16px 6px;
+    border-radius:999px;
+    box-shadow: 0 3px 10px rgba(180,85,48,0.35);
+  }
+  .feature-price-row .price-badge .cur{ font-family:'Cairo', sans-serif; font-weight:600; font-size:11px; margin-inline-start:3px; }
+  .feature-price-row .price-note{ font-family:'Cairo', sans-serif; font-size:12.5px; color: var(--muted); }
+
+  .flavor-picker label, .family-picker label.field-label{
+    display:block;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color: var(--olive-deep);
+    margin-bottom:8px;
+  }
+  .flavor-select{
+    width:100%;
+    font-family:'Tajawal', sans-serif;
+    font-size:14.5px;
+    color: var(--brown-deep);
+    background: #fff;
+    border: 1.5px solid var(--card-edge);
+    border-radius: 12px;
+    padding: 11px 14px;
+    margin-bottom:16px;
+    outline:none;
+  }
+  .flavor-select:focus{ border-color: var(--terracotta); }
+
+  .fruit-checkbox-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+    margin-bottom:18px;
+  }
+  .fruit-checkbox{
+    display:flex; align-items:center; gap:7px;
+    background:#fff;
+    border: 1.5px solid var(--card-edge);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-family:'Cairo', sans-serif;
+    font-size:12.5px;
+    color: var(--brown-deep);
+    cursor:pointer;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .fruit-checkbox:has(input:checked){
+    border-color: var(--terracotta);
+    background: rgba(203,106,62,0.08);
+  }
+  .fruit-checkbox:has(input:disabled){
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .fruit-checkbox input{ accent-color: var(--terracotta); width:15px; height:15px; flex-shrink:0; }
+
+  .btn-order-feature{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    color:#fff;
+    border:none;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(180,85,48,0.3);
+    transition: transform .2s ease;
+  }
+  .btn-order-feature:hover{ transform: translateY(-2px); }
+  .btn-order-feature svg{ width:19px; height:19px; fill:#fff; flex-shrink:0; }
+
+  /* ===== السلة ===== */
+  .cart-fab{
     position: fixed;
     bottom: 22px;
     left: 22px;
-    z-index: 50;
-    width: 60px; height:60px;
-    border-radius:50%;
+    z-index: 60;
+    display:flex; align-items:center; gap:9px;
     background: linear-gradient(160deg, var(--whatsapp), var(--whatsapp-deep));
-    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+    border:none;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    padding: 14px 20px;
+    border-radius: 999px;
     box-shadow: 0 8px 22px rgba(18,140,126,0.45);
-    text-decoration:none;
-    animation: floatPulse 2.4s ease-in-out infinite;
+    cursor:pointer;
   }
-  .float-whatsapp svg{ width:30px; height:30px; fill:#fff; }
-  @keyframes floatPulse{
-    0%, 100%{ box-shadow: 0 8px 22px rgba(18,140,126,0.45); }
-    50%{ box-shadow: 0 8px 26px rgba(18,140,126,0.7), 0 0 0 8px rgba(37,211,102,0.12); }
+  .cart-fab svg{ width:22px; height:22px; fill:#fff; flex-shrink:0; }
+  .cart-fab .cart-total{ font-family:'Lalezar', sans-serif; font-size:16px; }
+  .cart-fab .cart-count{
+    position:absolute; top:-6px; left:-6px;
+    background: var(--terracotta-deep);
+    color:#fff;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:11px;
+    min-width:20px; height:20px;
+    border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    padding:0 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  .cart-fab.hidden{ display:none; }
+
+  /* ===== الجوال ===== */
+  @media (max-width: 560px){
+    header{ padding: 40px 16px 28px; }
+    main{ padding: 8px 12px 40px; }
+    .grid{
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .card-body{ padding: 10px 12px 12px; }
+    .fruit-name{ font-size:14.5px; margin-bottom:2px; }
+    .fruit-weight{ font-size:11px; margin-bottom:9px; }
+    .price-row{ margin-bottom:9px; }
+    .price-badge{ font-size:16px; padding:3px 11px 4px; }
+    .per-g{ font-size:9.5px; }
+    .add-btn{ font-size:11.5px; padding:7px 6px; gap:4px; }
+    .add-btn svg{ width:12px; height:12px; }
+    .feature-body{ padding: 15px 16px 18px; }
+    .feature-title{ font-size:17px; }
+    .feature-desc{ font-size:12.5px; }
+    .fruit-checkbox-grid{ grid-template-columns: repeat(3, 1fr); }
+    .cart-fab{ bottom:14px; left:14px; padding:11px 16px; font-size:12.5px; }
+    .cart-fab svg{ width:19px; height:19px; }
   }
 
-  @media (prefers-reduced-motion: reduce){
-    .card{ transition:none; }
-    .float-whatsapp{ animation:none; }
+  /* ===== صفحة السلة (view-cart) ===== */
+  #view-cart{ display:none; }
+  .cv-page{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 0 40px;
+    position:relative; z-index:1;
+  }
+  .cv-topbar{
+    display:flex; align-items:center; gap:12px;
+    padding: 20px 20px 16px;
+    position:sticky; top:0;
+    background: var(--bg);
+    z-index:10;
+    border-bottom: 1px solid var(--card-edge);
+  }
+  .cv-back-btn{
+    width:38px; height:38px;
+    border-radius:50%;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    color: var(--brown-deep);
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .cv-topbar h2{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    color: var(--brown-deep);
+  }
+  .cv-section{ padding: 18px 20px 0; }
+  .cv-empty-state{
+    text-align:center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .cv-empty-state .icon{ font-size:48px; margin-bottom:14px; opacity:0.6; }
+  .cv-empty-state p{ font-family:'Cairo', sans-serif; font-size:14px; margin-bottom:20px; }
+  .cv-empty-state button{
+    display:inline-flex; align-items:center; gap:8px;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    color:#fff; border:none; cursor:pointer;
+    font-family:'Cairo', sans-serif; font-weight:800; font-size:14px;
+    padding: 11px 24px; border-radius:999px;
+  }
+  .cv-line{
+    display:flex; align-items:center; gap:12px;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .cv-line-info{ flex:1; min-width:0; }
+  .cv-line-name{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color: var(--brown-deep);
+    margin-bottom:4px;
+    line-height:1.5;
+  }
+  .cv-line-price{
+    font-family:'Cairo', sans-serif;
+    font-size:12px;
+    color: var(--muted);
+  }
+  .cv-qty{
+    display:flex; align-items:center; gap:8px;
+    background:#fff;
+    border: 1px solid var(--card-edge);
+    border-radius: 999px;
+    padding: 5px 7px;
+    flex-shrink:0;
+  }
+  .cv-qty button{
+    width:26px; height:26px;
+    border-radius:50%;
+    border:none;
+    background: rgba(203,106,62,0.12);
+    color: var(--terracotta-deep);
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    line-height:1;
+  }
+  .cv-qty .cv-qty-num{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    min-width:18px;
+    text-align:center;
+  }
+  .cv-line-subtotal{
+    font-family:'Lalezar', sans-serif;
+    font-size:18px;
+    color: var(--terracotta-deep);
+    min-width:60px;
+    text-align:left;
+    flex-shrink:0;
+  }
+  .cv-remove{
+    background:none; border:none; color: var(--muted);
+    font-size:13px; cursor:pointer; flex-shrink:0;
+    padding:4px;
+  }
+  .cv-section-title{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    color: var(--olive-deep);
+    margin-bottom:10px;
+  }
+  .cv-payment-options{ display:flex; flex-direction:column; gap:10px; margin-bottom: 4px; }
+  .cv-payment-option{ display:block; cursor:pointer; }
+  .cv-payment-option input{ position:absolute; opacity:0; width:0; height:0; }
+  .cv-payment-body{
+    display:flex; align-items:center; gap:12px;
+    background: var(--card);
+    border: 1.5px solid var(--card-edge);
+    border-radius: 16px;
+    padding: 13px 14px;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .cv-payment-option input:checked ~ .cv-payment-body{
+    border-color: var(--terracotta);
+    background: rgba(203,106,62,0.08);
+  }
+  .cv-payment-icon{
+    width:42px; height:42px;
+    border-radius:11px;
+    background: rgba(203,106,62,0.12);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .cv-payment-icon svg{ width:23px; height:23px; fill: var(--terracotta-deep); }
+  .cv-payment-text{ flex:1; min-width:0; }
+  .cv-payment-name{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    color: var(--brown-deep);
+  }
+  .cv-payment-sub{
+    font-family:'Cairo', sans-serif;
+    font-size:12px;
+    color: var(--muted);
+    margin-top:2px;
+  }
+  .cv-payment-price{
+    font-family:'Lalezar', sans-serif;
+    font-size:18px;
+    color: var(--terracotta-deep);
+    flex-shrink:0;
+  }
+  .cv-summary{
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-top: 18px;
+  }
+  .cv-summary-row{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:'Cairo', sans-serif;
+    font-size:13.5px;
+    color: var(--muted);
+    margin-bottom:8px;
+  }
+  .cv-summary-row.cv-total{
+    margin-top:10px;
+    padding-top:12px;
+    border-top: 1px dashed var(--card-edge);
+    color: var(--brown-deep);
+    font-weight:800;
+    font-size:15px;
+  }
+  .cv-summary-row.cv-total .cv-amount{
+    font-family:'Lalezar', sans-serif;
+    font-size:24px;
+    color: var(--terracotta-deep);
+  }
+  .cv-checkout-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%;
+    background: linear-gradient(160deg, var(--whatsapp), var(--whatsapp-deep));
+    color:#fff;
+    border:none;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:15.5px;
+    padding: 14px 16px;
+    border-radius: 999px;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(18,140,126,0.3);
+    margin-top:16px;
+  }
+  .cv-checkout-btn svg{ width:20px; height:20px; fill:#fff; flex-shrink:0; }
+  .cv-checkout-btn:disabled{ opacity:0.45; cursor:not-allowed; }
+  .cv-hint{
+    text-align:center;
+    font-family:'Cairo', sans-serif;
+    font-size:12px;
+    color: var(--muted);
+    margin-top:10px;
   }
 </style>
 </head>
 <body>
+
+<div id="view-menu">
 
 <header>
   <div class="logo"><img src="9333c9bc733195a2a7289f8572891d75~tplv-tiktokx-cropcenter_1080_1080.jpeg" alt="روائع الفاكهة"></div>
@@ -340,14 +734,84 @@
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
   <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-    اطلب الآن عبر واتساب
+    تواصل معنا عبر واتساب
   </a>
 </header>
 
 <main>
 
+  <div class="feature-card">
+    <span class="new-badge">منتج جديد</span>
+    <div class="feature-photo">
+      <img src="image (15) (1).png" alt="أظرف قهوة الفاكهة المنكهة" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+      <div class="placeholder"><span class="icon">☕</span>images/fruit-coffee.jpg</div>
+    </div>
+    <div class="feature-body">
+      <div class="feature-title">أظرف قهوة الفاكهة المنكهة</div>
+      <div class="feature-desc">دمجنا نكهة الفواكه المجففة مع القهوة بأسلوب مختلف — أظرف قهوة منكهة بنكهة فاكهة تختارها بنفسك.</div>
+      <div class="feature-price-row">
+        <div class="price-badge">15<span class="cur">ريال</span></div>
+        <div class="price-note">5 أظرف بنكهة واحدة</div>
+      </div>
+      <div class="flavor-picker">
+        <label for="coffee-flavor-select">اختر نكهة الفاكهة للأظرف الخمسة:</label>
+        <select id="coffee-flavor-select" class="flavor-select">
+          <option value="تنين (دراغون فروت)">تنين (دراغون فروت)</option>
+          <option value="أناناس">أناناس</option>
+          <option value="توت">توت</option>
+          <option value="فروله">فروله</option>
+          <option value="عطف">عطف</option>
+          <option value="موز">موز</option>
+          <option value="خوخ">خوخ</option>
+          <option value="تين مجفف">تين مجفف</option>
+        </select>
+      </div>
+      <button class="btn-order-feature" onclick="addCoffeeToCart()">
+        <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+        أضف للسلة
+      </button>
+    </div>
+  </div>
+
+  <div class="feature-card">
+    <span class="new-badge">للتجمعات العائلية</span>
+    <div class="feature-photo">
+      <img src="WhatsApp Image 2026-07-23 at 5.13.46 PM.jpeg" alt="مجموعة عائلية" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+      <div class="placeholder"><span class="icon">👨‍👩‍👧‍👦</span>images/family-pack.jpg</div>
+    </div>
+    <div class="feature-body">
+      <div class="feature-title">مجموعة عائلية</div>
+      <div class="feature-desc">مجموعة عائلية بسعر ثابت — اختر 6 أصناف بالضبط من القائمة تحت.</div>
+      <div class="feature-price-row">
+        <div class="price-badge">80<span class="cur">ريال</span></div>
+        <div class="price-note" id="family-count-note">اختر 6 أصناف (0/6)</div>
+      </div>
+      <div class="family-picker">
+        <label class="field-label">اختر 6 أصناف بالضبط:</label>
+        <div class="fruit-checkbox-grid" id="family-checkbox-grid">
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="مانجو" onchange="enforceFamilyLimit()">مانجو</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="تنين" onchange="enforceFamilyLimit()">تنين</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="أناناس" onchange="enforceFamilyLimit()">أناناس</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="توت" onchange="enforceFamilyLimit()">توت</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="كيوي" onchange="enforceFamilyLimit()">كيوي</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="فروله" onchange="enforceFamilyLimit()">فروله</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="شمندر" onchange="enforceFamilyLimit()">شمندر</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="عطف" onchange="enforceFamilyLimit()">عطف</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="موز" onchange="enforceFamilyLimit()">موز</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="خوخ" onchange="enforceFamilyLimit()">خوخ</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="برتقال" onchange="enforceFamilyLimit()">برتقال</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="تين مجفف" onchange="enforceFamilyLimit()">تين مجفف</label>
+        </div>
+      </div>
+      <button class="btn-order-feature" onclick="addFamilyToCart()">
+        <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+        أضف للسلة
+      </button>
+    </div>
+  </div>
+
   <div class="howto">
-    <b>اختار نوع الفاكهة الذي تفضله وإعلامنا به في واتساب. نتمنى لك تجربة لذيذة!</b> 
+    <b>لإضافة صورك:</b> سوّي مجلد باسم <code>images</code> بجانب ملف الموقع، وحط كل صورة بنفس الاسم المطلوب (مثلاً <code>mango.jpg</code>). بمجرد ما تضيف الصورة بنفس الاسم، بتظهر تلقائيًا مكان النقشة.
   </div>
 
   <div class="divider"><div class="line"></div><div class="label">الفواكه المجففة</div><div class="line"></div></div>
@@ -363,10 +827,10 @@
         <div class="fruit-name">مانجو كبير</div>
         <div class="fruit-weight">30 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D8%A7%D9%86%D8%AC%D9%88%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('مانجو كبير',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -379,10 +843,10 @@
         <div class="fruit-name">تنين (دراغون فروت) كبير</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%86%D9%8A%D9%86%20%28%D8%AF%D8%B1%D8%A7%D8%BA%D9%88%D9%86%20%D9%81%D8%B1%D9%88%D8%AA%29%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('تنين (دراغون فروت) كبير',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -395,10 +859,10 @@
         <div class="fruit-name">أناناس كبير</div>
         <div class="fruit-weight">40 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%A3%D9%86%D8%A7%D9%86%D8%A7%D8%B3%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('أناناس كبير',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -411,10 +875,10 @@
         <div class="fruit-name">توت كبير</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%88%D8%AA%20%D9%83%D8%A8%D9%8A%D8%B1" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('توت كبير',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -427,26 +891,26 @@
         <div class="fruit-name">كيوي</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%83%D9%8A%D9%88%D9%8A" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('كيوي',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
     <div class="card">
       <div class="photo-wrap">
-        <img src="3296e463-8570-40f6-bf97-43e2827026c8.jpg" alt="فروله" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="ad233c1d-27f1-4345-aa04-2c6ff3a56548-1000x1000-6PlLbn0ppft4bQmHlX6PmrLkY3fz2xcRxn8LeXao.jpg" alt="فروله" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🍓</span>images/strawberry.jpg</div>
       </div>
       <div class="card-body">
         <div class="fruit-name">فروله</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%81%D8%B1%D9%88%D9%84%D9%87" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('فروله',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -459,10 +923,10 @@
         <div class="fruit-name">شمندر</div>
         <div class="fruit-weight">45 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%B4%D9%85%D9%86%D8%AF%D8%B1" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('شمندر',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -475,26 +939,26 @@
         <div class="fruit-name">عطف</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B7%D9%81" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('عطف',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
     <div class="card">
       <div class="photo-wrap">
-        <img src="c9d63556-8276-45fc-ab01-9f0e0a10edec-thumbnail-770x770-70.webp" alt="موز" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="2cf0f543-04f2-4e4a-9fb2-74d95525835f-500x500-L1yCeGhmDUl9dEL9wKGGVgUD0ZuNNQw14LKZyVeP.webp" alt="موز" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🍌</span>images/banana.jpg</div>
       </div>
       <div class="card-body">
         <div class="fruit-name">موز</div>
         <div class="fruit-weight">40 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D9%88%D8%B2" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('موز',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -507,10 +971,10 @@
         <div class="fruit-name">خوخ</div>
         <div class="fruit-weight">60 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AE%D9%88%D8%AE" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('خوخ',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -523,10 +987,10 @@
         <div class="fruit-name">برتقال</div>
         <div class="fruit-weight">30 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%A8%D8%B1%D8%AA%D9%82%D8%A7%D9%84" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('برتقال',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -539,10 +1003,10 @@
         <div class="fruit-name">تين مجفف</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D8%AA%D9%8A%D9%86%20%D9%85%D8%AC%D9%81%D9%81" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('تين مجفف',15,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -562,27 +1026,27 @@
         <div class="fruit-name">مشكل فواكه</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">25<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B7%D9%84%D8%A8%20%D9%85%D8%B4%D9%83%D9%84%20%D9%81%D9%88%D8%A7%D9%83%D9%87" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <button class="add-btn" onclick="addToCart('مشكل فواكه',25,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
     <div class="card">
-      <span class="special-tag">إضافة</span>
+      <span class="special-tag">حجم كبير</span>
       <div class="photo-wrap">
-        <img src="images (1).jpg" alt="صوص شوكولاتة نوتيلا" loading="lazy" onerror="this.setAttribute('data-broken','1')">
-        <div class="placeholder"><span class="icon">🍫</span>images/nutella.jpg</div>
+        <img src="51Wo-rbxqhL._AC_UF894,1000_QL80_.jpg" alt="مشكل كبير" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <div class="placeholder"><span class="icon">🍇</span>images/mixed-large.jpg</div>
       </div>
       <div class="card-body">
-        <div class="fruit-name">صوص شوكولاتة نوتيلا</div>
-        <div class="fruit-weight">يُقدَّم كإضافة</div>
-        <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div></div>
-        <a class="order-btn" href="https://wa.me/966579705068?text=%D8%A7%D8%A8%D8%BA%D9%89%20%D8%A3%D8%B6%D9%8A%D9%81%20%D8%B5%D9%88%D8%B5%20%D9%86%D9%88%D8%AA%D9%8A%D9%84%D8%A7" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-          اطلب
-        </a>
+        <div class="fruit-name">مشكل كبير</div>
+        <div class="fruit-weight">200 غرام</div>
+        <div class="price-row"><div class="price-badge">70<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
+        <button class="add-btn" onclick="addToCart('مشكل كبير',70,this)">
+          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+          أضف للسلة
+        </button>
       </div>
     </div>
 
@@ -599,9 +1063,294 @@
   <p>🍑 🥭 🍓</p>
 </footer>
 
-<a class="float-whatsapp" href="https://wa.me/966579705068" target="_blank" rel="noopener" aria-label="اطلب عبر واتساب">
-  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-</a>
+<!-- زر السلة العائم -->
+<button class="cart-fab hidden" id="cart-fab" onclick="showCartView()">
+  <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01C19.42 4 3.6 7.59 3.6 7.59L2.6 4H1zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  <span id="cart-fab-total" class="cart-total">0 ريال</span>
+  <span id="cart-fab-count" class="cart-count" style="display:none;">0</span>
+</button>
+
+</div>
+
+<!-- ===== صفحة السلة (نفس الملف) ===== -->
+<div id="view-cart">
+  <div class="cv-page">
+
+    <div class="cv-topbar">
+      <button class="cv-back-btn" onclick="showMenuView()" aria-label="رجوع">→</button>
+      <h2>سلة الطلب</h2>
+    </div>
+
+    <div id="cv-empty-state" class="cv-empty-state" style="display:none;">
+      <div class="icon">🛒</div>
+      <p>السلة فارغة حاليًا</p>
+      <button onclick="showMenuView()">تصفح المنيو</button>
+    </div>
+
+    <div id="cv-content">
+      <div class="cv-section">
+        <div id="cv-lines"></div>
+      </div>
+
+      <div class="cv-section">
+        <div class="cv-section-title">طريقة الدفع والتوصيل</div>
+        <div class="cv-payment-options">
+          <label class="cv-payment-option">
+            <input type="radio" name="cv-payment" value="cod" onchange="selectPayment('cod')">
+            <div class="cv-payment-body">
+              <div class="cv-payment-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 8h-3V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h1c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1c.55 0 1-.45 1-1v-4l-3-5zM8 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10.5-9l1.96 3H16V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              </div>
+              <div class="cv-payment-text">
+                <div class="cv-payment-name">الدفع عند الاستلام</div>
+                <div class="cv-payment-sub">التوصيل: جي اند تي إكسبريس</div>
+              </div>
+              <div class="cv-payment-price">32 ريال</div>
+            </div>
+          </label>
+          <label class="cv-payment-option">
+            <input type="radio" name="cv-payment" value="transfer" onchange="selectPayment('transfer')">
+            <div class="cv-payment-body">
+              <div class="cv-payment-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 8h-3V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h1c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1c.55 0 1-.45 1-1v-4l-3-5zM8 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10.5-9l1.96 3H16V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              </div>
+              <div class="cv-payment-text">
+                <div class="cv-payment-name">تحويل بنكي</div>
+                <div class="cv-payment-sub">التوصيل: إكسبرس</div>
+              </div>
+              <div class="cv-payment-price">21 ريال</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="cv-summary">
+          <div class="cv-summary-row">
+            <span>إجمالي المنتجات</span>
+            <span id="cv-products-subtotal">0 ريال</span>
+          </div>
+          <div class="cv-summary-row" id="cv-delivery-row" style="display:none;">
+            <span>رسوم التوصيل</span>
+            <span id="cv-delivery-fee">0 ريال</span>
+          </div>
+          <div class="cv-summary-row cv-total">
+            <span>الإجمالي</span>
+            <span class="cv-amount" id="cv-grand-total">0 ريال</span>
+          </div>
+        </div>
+
+        <button class="cv-checkout-btn" id="cv-checkout-btn" onclick="checkout()">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+          إتمام الطلب عبر واتساب
+        </button>
+        <p class="cv-hint">اختر طريقة الدفع قبل إتمام الطلب</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const CART_KEY = "rawae_cart_v1";
+  const WA_NUMBER = "966579705068";
+  const DELIVERY = {
+    cod: { price: 32, company: "جي اند تي إكسبريس", label: "الدفع عند الاستلام" },
+    transfer: { price: 21, company: "إكسبرس", label: "تحويل بنكي" }
+  };
+  let cart = [];
+  let selectedPayment = null;
+
+  function loadCart(){
+    try{
+      const raw = localStorage.getItem(CART_KEY);
+      cart = raw ? JSON.parse(raw) : [];
+    }catch(e){ cart = []; }
+    updateCartFab();
+  }
+
+  function saveCart(){
+    try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){}
+  }
+
+  function cartTotal(){
+    return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  }
+  function cartCount(){
+    return cart.reduce((sum, i) => sum + i.qty, 0);
+  }
+
+  function updateCartFab(){
+    const fab = document.getElementById('cart-fab');
+    const fabTotal = document.getElementById('cart-fab-total');
+    const fabCount = document.getElementById('cart-fab-count');
+    const count = cartCount();
+    if(count > 0){
+      fab.classList.remove('hidden');
+      fabTotal.textContent = cartTotal() + ' ريال';
+      fabCount.style.display = 'flex';
+      fabCount.textContent = count;
+    } else {
+      fab.classList.add('hidden');
+    }
+  }
+
+  function addToCart(name, price, btnEl){
+    const existing = cart.find(item => item.name === name);
+    if(existing){ existing.qty += 1; }
+    else{ cart.push({ name, price, qty: 1 }); }
+    saveCart();
+    updateCartFab();
+    if(btnEl){
+      btnEl.classList.add('just-added');
+      const original = btnEl.innerHTML;
+      btnEl.innerHTML = '✓ أُضيف للسلة';
+      setTimeout(() => {
+        btnEl.classList.remove('just-added');
+        btnEl.innerHTML = original;
+      }, 1200);
+    }
+  }
+
+  function addCoffeeToCart(){
+    const select = document.getElementById('coffee-flavor-select');
+    const flavor = select.value;
+    addToCart(`أظرف قهوة الفاكهة (نكهة ${flavor})`, 15);
+  }
+
+  function enforceFamilyLimit(){
+    const boxes = document.querySelectorAll('.family-checkbox');
+    const checkedCount = document.querySelectorAll('.family-checkbox:checked').length;
+    boxes.forEach(cb => {
+      if(!cb.checked){
+        cb.disabled = checkedCount >= 6;
+      }
+    });
+    const note = document.getElementById('family-count-note');
+    if(note){ note.textContent = `اختر 6 أصناف (${checkedCount}/6)`; }
+  }
+
+  function addFamilyToCart(){
+    const checked = document.querySelectorAll('.family-checkbox:checked');
+    const items = Array.from(checked).map(cb => cb.value);
+    if(items.length !== 6){
+      alert('لازم تختار 6 أصناف بالضبط لطلب المجموعة العائلية.');
+      return;
+    }
+    addToCart(`مجموعة عائلية (${items.join('، ')})`, 80);
+  }
+
+  /* ===== التنقل بين المنيو والسلة (نفس الصفحة) ===== */
+  function showCartView(){
+    document.getElementById('view-menu').style.display = 'none';
+    document.getElementById('view-cart').style.display = 'block';
+    window.scrollTo(0, 0);
+    renderCartView();
+  }
+  function showMenuView(){
+    document.getElementById('view-cart').style.display = 'none';
+    document.getElementById('view-menu').style.display = 'block';
+    window.scrollTo(0, 0);
+    updateCartFab();
+  }
+
+  /* ===== منطق صفحة السلة ===== */
+  function changeQty(name, delta){
+    const item = cart.find(i => i.name === name);
+    if(!item) return;
+    item.qty += delta;
+    if(item.qty <= 0){
+      cart = cart.filter(i => i.name !== name);
+    }
+    saveCart();
+    renderCartView();
+  }
+
+  function removeItem(name){
+    cart = cart.filter(i => i.name !== name);
+    saveCart();
+    renderCartView();
+  }
+
+  function selectPayment(type){
+    selectedPayment = type;
+    renderCartView();
+  }
+
+  function renderCartView(){
+    const emptyState = document.getElementById('cv-empty-state');
+    const cvContent = document.getElementById('cv-content');
+    const linesEl = document.getElementById('cv-lines');
+    const productsSubtotalEl = document.getElementById('cv-products-subtotal');
+    const deliveryRow = document.getElementById('cv-delivery-row');
+    const deliveryFeeEl = document.getElementById('cv-delivery-fee');
+    const grandTotalEl = document.getElementById('cv-grand-total');
+    const checkoutBtn = document.getElementById('cv-checkout-btn');
+
+    if(cart.length === 0){
+      emptyState.style.display = 'block';
+      cvContent.style.display = 'none';
+      updateCartFab();
+      return;
+    }
+    emptyState.style.display = 'none';
+    cvContent.style.display = 'block';
+
+    linesEl.innerHTML = cart.map(item => `
+      <div class="cv-line">
+        <div class="cv-line-info">
+          <div class="cv-line-name">${item.name}</div>
+          <div class="cv-line-price">${item.price} ريال للوحدة</div>
+        </div>
+        <div class="cv-qty">
+          <button onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
+          <span class="cv-qty-num">${item.qty}</span>
+          <button onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+        </div>
+        <div class="cv-line-subtotal">${item.price * item.qty}</div>
+        <button class="cv-remove" onclick="removeItem('${item.name.replace(/'/g, "\\'")}')" aria-label="حذف">✕</button>
+      </div>
+    `).join('');
+
+    const productsTotal = cartTotal();
+    const deliveryInfo = selectedPayment ? DELIVERY[selectedPayment] : null;
+    const deliveryFee = deliveryInfo ? deliveryInfo.price : 0;
+    const grandTotal = productsTotal + deliveryFee;
+
+    productsSubtotalEl.textContent = productsTotal + ' ريال';
+    if(deliveryInfo){
+      deliveryRow.style.display = 'flex';
+      deliveryFeeEl.textContent = deliveryFee + ' ريال';
+    } else {
+      deliveryRow.style.display = 'none';
+    }
+    grandTotalEl.textContent = grandTotal + ' ريال';
+    checkoutBtn.disabled = !selectedPayment;
+    updateCartFab();
+  }
+
+  function checkout(){
+    if(cart.length === 0 || !selectedPayment) return;
+    const deliveryInfo = DELIVERY[selectedPayment];
+    const productsTotal = cartTotal();
+    const grandTotal = productsTotal + deliveryInfo.price;
+
+    let msg = "🧾 طلب جديد - روائع الفاكهة\n\n";
+    cart.forEach((item, idx) => {
+      const subtotal = item.price * item.qty;
+      msg += `${idx + 1}. ${item.name} × ${item.qty} — ${subtotal} ريال\n`;
+    });
+    msg += "\n————————————————\n";
+    msg += `إجمالي المنتجات: ${productsTotal} ريال\n`;
+    msg += `طريقة الدفع: ${deliveryInfo.label}\n`;
+    msg += `شركة التوصيل: ${deliveryInfo.company}\n`;
+    msg += `رسوم التوصيل: ${deliveryInfo.price} ريال\n`;
+    msg += "————————————————\n";
+    msg += `الإجمالي الكلي: ${grandTotal} ريال`;
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  loadCart();
+</script>
 
 </body>
 </html>
