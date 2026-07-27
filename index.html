@@ -248,6 +248,27 @@
   }
   .add-btn svg{ width:15px; height:15px; fill:currentColor; flex-shrink:0; }
 
+  .sold-out-tag{
+    position:absolute; top:12px; left:12px;
+    z-index:3;
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    font-weight:800;
+    color:#fff;
+    background: #b5342c;
+    padding: 4px 12px;
+    border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(181,52,44,0.4);
+  }
+  .card.sold-out .photo-wrap img{ filter: grayscale(85%); opacity:0.55; }
+  .card.sold-out .add-btn{
+    background: rgba(138,116,88,0.12);
+    border-color: rgba(138,116,88,0.3);
+    color: var(--muted);
+    cursor:not-allowed;
+  }
+  .card.sold-out .add-btn:hover{ transform:none; background: rgba(138,116,88,0.12); }
+
   .special-tag{
     position:absolute; top:12px; left:12px;
     z-index:2;
@@ -789,7 +810,6 @@
       <div class="family-picker">
         <label class="field-label">اختر 6 أصناف بالضبط:</label>
         <div class="fruit-checkbox-grid" id="family-checkbox-grid">
-          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="مانجو" onchange="enforceFamilyLimit()">مانجو</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="تنين" onchange="enforceFamilyLimit()">تنين</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="أناناس" onchange="enforceFamilyLimit()">أناناس</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="توت" onchange="enforceFamilyLimit()">توت</label>
@@ -810,15 +830,14 @@
     </div>
   </div>
 
-  <div class="howto">
-    <b>لإضافة صورك:</b> سوّي مجلد باسم <code>images</code> بجانب ملف الموقع، وحط كل صورة بنفس الاسم المطلوب (مثلاً <code>mango.jpg</code>). بمجرد ما تضيف الصورة بنفس الاسم، بتظهر تلقائيًا مكان النقشة.
-  </div>
+ 
 
   <div class="divider"><div class="line"></div><div class="label">الفواكه المجففة</div><div class="line"></div></div>
 
   <div class="grid">
 
-    <div class="card">
+    <div class="card sold-out">
+      <span class="sold-out-tag">نفذت الكمية</span>
       <div class="photo-wrap">
         <img src="d11911d7-0d3b-4bf4-8746-d38d4d7f355d-1000x1000-Loq3ejrGDBmsFJHDXFxQ7ApiGE3Bxem7a2MZ5Nmr.webp" alt="مانجو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🥭</span>images/mango.jpg</div>
@@ -827,9 +846,8 @@
         <div class="fruit-name">مانجو كبير</div>
         <div class="fruit-weight">30 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <button class="add-btn" onclick="addToCart('مانجو كبير',15,this)">
-          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
-          أضف للسلة
+        <button class="add-btn" disabled>
+          نفذت الكمية
         </button>
       </div>
     </div>
