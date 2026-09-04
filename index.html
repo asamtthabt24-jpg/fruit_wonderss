@@ -768,6 +768,38 @@
     color: var(--muted);
     margin-top:10px;
   }
+
+  /* ===== بطاقة اليوم الوطني ===== */
+  .feature-card.national-day{
+    border-color: var(--olive);
+    background: linear-gradient(180deg, #f6f8ee, #fbf6ec);
+  }
+  .feature-card.national-day .new-badge{
+    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
+    box-shadow: 0 3px 10px rgba(95,107,58,0.4);
+  }
+  .feature-card.national-day .feature-price-row .price-badge{
+    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
+    box-shadow: 0 3px 10px rgba(95,107,58,0.35);
+  }
+  .national-day-list{
+    display:flex; flex-wrap:wrap; gap:7px;
+    margin-bottom:16px;
+  }
+  .national-day-list span{
+    font-family:'Cairo', sans-serif;
+    font-size:12px;
+    font-weight:700;
+    color: var(--olive-deep);
+    background: rgba(124,138,79,0.10);
+    border: 1px solid rgba(124,138,79,0.35);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+  .feature-card.national-day .btn-order-feature{
+    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
+    box-shadow: 0 6px 16px rgba(95,107,58,0.3);
+  }
 </style>
 </head>
 <body>
@@ -788,6 +820,36 @@
 <div class="free-ship-banner">🚚 التوصيل مجاني عند الدفع بالتحويل البنكي للطلبات فوق 100 ريال</div>
 
 <main>
+
+  <div class="feature-card national-day">
+    <span class="new-badge">🇸🇦 اليوم الوطني</span>
+    <div class="feature-photo">
+      <img src="" alt="بوكس اليوم الوطني" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+      <div class="placeholder"><span class="icon">🇸🇦</span>images/national-day-box.jpg</div>
+    </div>
+    <div class="feature-body">
+      <div class="feature-title">بوكس اليوم الوطني</div>
+      <div class="feature-desc">بوكس احتفالي بمناسبة اليوم الوطني يجمع 8 أصناف من ألذ فواكهنا المجففة.</div>
+      <div class="national-day-list">
+        <span>موز</span>
+        <span>بشن فروت</span>
+        <span>كيوي</span>
+        <span>دراجن فروت</span>
+        <span>شمندر</span>
+        <span>برتقال</span>
+        <span>تين</span>
+        <span>فروله</span>
+      </div>
+      <div class="feature-price-row">
+        <div class="price-badge">96<span class="cur">ريال</span></div>
+        <div class="price-note">8 أصناف ثابتة</div>
+      </div>
+      <button class="btn-order-feature" onclick="addToCart('بوكس اليوم الوطني (موز، بشن فروت، كيوي، دراجن فروت، شمندر، برتقال، تين، فروله)',96,this)">
+        <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+        أضف للسلة
+      </button>
+    </div>
+  </div>
 
   <div class="feature-card">
     <span class="new-badge">منتج جديد</span>
