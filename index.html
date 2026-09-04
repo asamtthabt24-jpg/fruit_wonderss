@@ -106,32 +106,6 @@
   }
   .header-order-btn svg{ width:20px; height:20px; fill:#fff; flex-shrink:0; }
 
-  .free-ship-banner{
-    position:relative; z-index:1;
-    background: #b5342c;
-    color:#fff;
-    text-align:center;
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    font-size:13.5px;
-    padding: 10px 16px;
-    letter-spacing:0.2px;
-  }
-  .cv-free-ship-banner{
-    background: #b5342c;
-    color:#fff;
-    text-align:center;
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    font-size:13px;
-    padding: 10px 14px;
-    border-radius: 12px;
-    margin-bottom:14px;
-  }
-  .cv-free-ship-banner.achieved{
-    background: var(--whatsapp-deep);
-  }
-
   main{
     position:relative; z-index:1;
     max-width: 1080px;
@@ -817,8 +791,6 @@
   </a>
 </header>
 
-<div class="free-ship-banner">🚚 التوصيل مجاني عند الدفع بالتحويل البنكي للطلبات فوق 100 ريال</div>
-
 <main>
 
   <div class="feature-card national-day">
@@ -1201,7 +1173,6 @@
       </div>
 
       <div class="cv-section">
-        <div id="cv-free-ship-banner" class="cv-free-ship-banner"></div>
         <div class="cv-section-title">طريقة الدفع والتوصيل</div>
         <div class="cv-payment-options">
           <label class="cv-payment-option">
@@ -1265,7 +1236,6 @@
     cod: { price: 37, company: "جي اند تي إكسبريس", label: "الدفع عند الاستلام" },
     transfer: { price: 21, company: "إكسبرس", label: "تحويل بنكي" }
   };
-  const FREE_SHIP_THRESHOLD = 100;
   let cart = [];
   let selectedPayment = null;
 
@@ -1421,36 +1391,20 @@
     `).join('');
 
     const productsTotal = cartTotal();
-    const overThreshold = productsTotal > FREE_SHIP_THRESHOLD;
-    const isFreeShip = overThreshold && selectedPayment === 'transfer';
     const deliveryInfo = selectedPayment ? DELIVERY[selectedPayment] : null;
-    const deliveryFee = deliveryInfo ? (isFreeShip ? 0 : deliveryInfo.price) : 0;
+    const deliveryFee = deliveryInfo ? deliveryInfo.price : 0;
     const grandTotal = productsTotal + deliveryFee;
 
-    // شريط التوصيل المجاني
-    const banner = document.getElementById('cv-free-ship-banner');
-    if(isFreeShip){
-      banner.textContent = '🎉 مبروك! طلبك فوق 100 ريال مع التحويل البنكي — التوصيل مجاني';
-      banner.classList.add('achieved');
-    } else if(overThreshold){
-      banner.textContent = '🚚 اختر التحويل البنكي وتحصل على توصيل مجاني (طلبك فوق 100 ريال)';
-      banner.classList.remove('achieved');
-    } else {
-      const remaining = FREE_SHIP_THRESHOLD - productsTotal + 1;
-      banner.textContent = `🚚 أضف ${remaining} ريال أكثر واختر التحويل البنكي لتوصيل مجاني`;
-      banner.classList.remove('achieved');
-    }
-
-    // تحديث الأسعار المعروضة بجانب كل طريقة دفع (الدفع عند الاستلام دايمًا برسوم ثابتة)
+    // تحديث الأسعار المعروضة بجانب كل طريقة دفع
     const codPriceEl = document.getElementById('cod-price');
     const transferPriceEl = document.getElementById('transfer-price');
     if(codPriceEl) codPriceEl.textContent = DELIVERY.cod.price + ' ريال';
-    if(transferPriceEl) transferPriceEl.textContent = overThreshold ? 'مجاني' : DELIVERY.transfer.price + ' ريال';
+    if(transferPriceEl) transferPriceEl.textContent = DELIVERY.transfer.price + ' ريال';
 
     productsSubtotalEl.textContent = productsTotal + ' ريال';
     if(deliveryInfo){
       deliveryRow.style.display = 'flex';
-      deliveryFeeEl.textContent = isFreeShip ? 'مجاني' : deliveryFee + ' ريال';
+      deliveryFeeEl.textContent = deliveryFee + ' ريال';
     } else {
       deliveryRow.style.display = 'none';
     }
@@ -1463,8 +1417,7 @@
     if(cart.length === 0 || !selectedPayment) return;
     const deliveryInfo = DELIVERY[selectedPayment];
     const productsTotal = cartTotal();
-    const isFreeShip = productsTotal > FREE_SHIP_THRESHOLD && selectedPayment === 'transfer';
-    const deliveryFee = isFreeShip ? 0 : deliveryInfo.price;
+    const deliveryFee = deliveryInfo.price;
     const grandTotal = productsTotal + deliveryFee;
 
     let msg = "🧾 طلب جديد - روائع الفاكهة\n\n";
@@ -1476,9 +1429,7 @@
     msg += `إجمالي المنتجات: ${productsTotal} ريال\n`;
     msg += `طريقة الدفع: ${deliveryInfo.label}\n`;
     msg += `شركة التوصيل: ${deliveryInfo.company}\n`;
-    msg += isFreeShip
-      ? `رسوم التوصيل: مجاني (تحويل بنكي - طلب فوق 100 ريال)\n`
-      : `رسوم التوصيل: ${deliveryFee} ريال\n`;
+    msg += `رسوم التوصيل: ${deliveryFee} ريال\n`;
     msg += "————————————————\n";
     msg += `الإجمالي الكلي: ${grandTotal} ريال`;
 
