@@ -430,6 +430,60 @@
   .feature-card .feature-photo .placeholder .icon{ font-size:32px; opacity:0.55; }
   .feature-card .feature-photo img:not([src=""]):not([data-broken]) ~ .placeholder{ display:none; }
 
+  .feature-photo.carousel{
+    position:relative;
+    overflow:hidden;
+  }
+  .feature-photo.carousel .carousel-track{
+    width:100%; height:100%;
+    position:relative;
+  }
+  .feature-photo.carousel .carousel-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    transition: opacity .3s ease;
+    pointer-events:none;
+  }
+  .feature-photo.carousel .carousel-slide.active{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .feature-photo.carousel .carousel-slide img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+  .feature-photo.carousel .carousel-slide .placeholder{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px; color: var(--muted);
+    font-family:'Cairo', sans-serif; font-size:12px; text-align:center; padding:0 10px;
+  }
+  .feature-photo.carousel .carousel-slide .placeholder .icon{ font-size:32px; opacity:0.55; }
+  .feature-photo.carousel .carousel-slide img:not([src=""]):not([data-broken]) ~ .placeholder{ display:none; }
+  .carousel-arrow{
+    position:absolute; top:50%; transform: translateY(-50%);
+    width:34px; height:34px;
+    border-radius:50%;
+    background: rgba(74,45,24,0.55);
+    color:#fff;
+    border:none;
+    font-size:20px;
+    line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    z-index:3;
+  }
+  .carousel-prev{ right:10px; }
+  .carousel-next{ left:10px; }
+  .carousel-dots{
+    position:absolute; bottom:10px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px;
+    z-index:3;
+  }
+  .carousel-dots .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: rgba(255,255,255,0.55);
+    transition: background .2s ease;
+  }
+  .carousel-dots .dot.active{ background:#fff; }
+
   .feature-body{ padding: 20px 22px 24px; }
   .feature-title{
     font-family:'Cairo', sans-serif;
@@ -858,7 +912,7 @@
 </head>
 <body>
 
-<a class="top-announcement" href="" target="_blank" rel="noopener">
+<a class="top-announcement" href="https://ehsan.sa" target="_blank" rel="noopener">
   🤍 نتبرع بجزء من أرباح كل طلب لمنصة إحسان الخيرية
 </a>
 
@@ -869,7 +923,10 @@
   <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
   <h1>روائع الفاكهة</h1>
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
-  
+  <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+    تواصل معنا عبر واتساب
+  </a>
 
   <div class="category-nav" id="category-nav">
     <button class="category-chip active" onclick="filterCategory('الكل', this)">الكل</button>
@@ -1187,6 +1244,47 @@
   <div class="category-section" data-category="الحوامض">
   <div class="divider"><div class="line"></div><div class="label">حوامض</div><div class="line"></div></div>
 
+  <div class="feature-card">
+    <span class="new-badge">عرض</span>
+    <div class="feature-photo carousel" id="sour-marshmallow-carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide active">
+          <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM.jpeg" alt="أعواد مارشميلو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+          <div class="placeholder"><span class="icon">🍡</span>images/marshmallow-sticks.jpg</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM (1).jpeg" alt="أعواد حامض" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+          <div class="placeholder"><span class="icon">⚡</span>images/electric-sour-sticks.jpg</div>
+        </div>
+      </div>
+      <button class="carousel-arrow carousel-prev" onclick="changeCarousel(this)" aria-label="عرض الصورة التالية">‹</button>
+      <button class="carousel-arrow carousel-next" onclick="changeCarousel(this)" aria-label="عرض الصورة التالية">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="feature-title">عرض: علبتين مارشميلو وحامض</div>
+      <div class="feature-desc">علبة أعواد مارشميلو + علبة أعواد حامض تختار نوعها بنفسك — بسعر عرض للعلبتين مع بعض.</div>
+      <div class="feature-price-row">
+        <div class="price-badge">10<span class="cur">ريال</span></div>
+        <div class="price-note">علبتين (مارشميلو + حامض)</div>
+      </div>
+      <div class="flavor-picker">
+        <label for="sour-type-select">اختر نوع علبة الحامض:</label>
+        <select id="sour-type-select" class="flavor-select">
+          <option value="حامض كهرباء">حامض كهرباء</option>
+          <option value="حلو">حلو</option>
+        </select>
+      </div>
+      <button class="btn-order-feature" onclick="addSourMarshmallowOfferToCart()">
+        <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
+        أضف للسلة
+      </button>
+    </div>
+  </div>
+
   <div class="grid">
 
     <div class="card">
@@ -1237,36 +1335,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="photo-wrap">
-        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM.jpeg" alt="أعواد مارشميلو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
-        <div class="placeholder"><span class="icon">🍡</span>images/fruit-sticks.jpg</div>
-      </div>
-      <div class="card-body">
-        <div class="fruit-name">أعواد مارشميلو 2</div>
-        <div class="fruit-weight"> الاثنين</div>
-        <div class="price-row"><div class="price-badge">10<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <button class="add-btn" onclick="addToCart('أعواد فواكه',10,this)">
-          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
-          أضف للسلة
-        </button>
-      </div>
-    </div>
-<div class="card">
-      <div class="photo-wrap">
-        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM (1).jpeg" alt="أعواد حامض كهرباء او حلو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
-        <div class="placeholder"><span class="icon">🍡</span>images/fruit-sticks.jpg</div>
-      </div>
-      <div class="card-body">
-        <div class="fruit-name">أعواد حامض كهرباء او حلو 2</div>
-        <div class="fruit-weight"> الاثنين </div>
-        <div class="price-row"><div class="price-badge">10<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <button class="add-btn" onclick="addToCart('أعواد فواكه',10,this)">
-          <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
-          أضف للسلة
-        </button>
-      </div>
-    </div>
   </div>
   </div>
 
@@ -1487,6 +1555,43 @@
     addToCart(`أظرف قهوة الفاكهة (نكهة ${flavor})`, 15);
   }
 
+  function addSourMarshmallowOfferToCart(){
+    const select = document.getElementById('sour-type-select');
+    const type = select.value;
+    addToCart(`عرض علبتين (مارشميلو + حامض ${type})`, 10);
+  }
+
+  function goToCarouselSlide(carousel, newIndex){
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.dot');
+    const total = slides.length;
+    const normalized = ((newIndex % total) + total) % total;
+    slides.forEach((s, i) => s.classList.toggle('active', i === normalized));
+    dots.forEach((d, i) => d.classList.toggle('active', i === normalized));
+  }
+
+  function changeCarousel(btnEl){
+    const carousel = btnEl.closest('.carousel');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
+    goToCarouselSlide(carousel, activeIndex + 1);
+  }
+
+  document.querySelectorAll('.carousel').forEach(carousel => {
+    let touchStartX = 0;
+    carousel.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if(Math.abs(diff) < 30) return;
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
+      goToCarouselSlide(carousel, diff < 0 ? activeIndex + 1 : activeIndex - 1);
+    }, { passive: true });
+  });
+
   function enforceFamilyLimit(){
     const boxes = document.querySelectorAll('.family-checkbox');
     const checkedCount = document.querySelectorAll('.family-checkbox:checked').length;
@@ -1547,7 +1652,7 @@
   }
 
   function setDonation(amount, btnEl){
-    const DONATION_NAME = 'تبرع - لمنصة إحسان';
+    const DONATION_NAME = 'تبرع - منصة إحسان';
     cart = cart.filter(i => i.name !== DONATION_NAME);
     if(amount > 0){
       cart.push({ name: DONATION_NAME, price: amount, qty: 1 });
