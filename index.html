@@ -138,6 +138,28 @@
     .category-chip{ font-size:12px; padding:7px 14px; }
   }
 
+  .impact-banner{ display:none; }
+
+  .top-announcement{
+    display:block;
+    width:100%;
+    background: linear-gradient(135deg, var(--olive), var(--olive-deep));
+    color:#fff;
+    text-decoration:none;
+    text-align:center;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:.2px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 10px rgba(95,107,58,0.3);
+    position: relative;
+    z-index: 20;
+  }
+  @media (max-width: 560px){
+    .top-announcement{ font-size:12px; padding:10px 12px; line-height:1.6; }
+  }
+
   main{
     position:relative; z-index:1;
     max-width: 1080px;
@@ -775,6 +797,32 @@
     margin-top:10px;
   }
 
+  .donation-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .donation-chip{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    color: var(--olive-deep);
+    background: rgba(124,138,79,0.08);
+    border: 1.5px solid rgba(124,138,79,0.35);
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .donation-chip:hover{ transform: translateY(-1px); }
+  .donation-chip.active{
+    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
+    border-color: var(--olive-deep);
+    color:#fff;
+    box-shadow: 0 3px 10px rgba(95,107,58,0.35);
+  }
+
   /* ===== بطاقة اليوم الوطني ===== */
   .feature-card.national-day{
     border-color: var(--olive);
@@ -810,6 +858,10 @@
 </head>
 <body>
 
+<a class="top-announcement" href="" target="_blank" rel="noopener">
+  🤍 نتبرع بجزء من أرباح كل طلب لمنصة إحسان الخيرية
+</a>
+
 <div id="view-menu">
 
 <header>
@@ -817,10 +869,7 @@
   <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
   <h1>روائع الفاكهة</h1>
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
-  <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
-    تواصل معنا عبر واتساب
-  </a>
+  
 
   <div class="category-nav" id="category-nav">
     <button class="category-chip active" onclick="filterCategory('الكل', this)">الكل</button>
@@ -1190,12 +1239,12 @@
 
     <div class="card">
       <div class="photo-wrap">
-        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM (1).jpeg" alt="أعواد فواكه" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM.jpeg" alt="أعواد مارشميلو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🍡</span>images/fruit-sticks.jpg</div>
       </div>
       <div class="card-body">
-        <div class="fruit-name">أعواد حامض كهرباء او حلو</div>
-        <div class="fruit-weight">12 عود</div>
+        <div class="fruit-name">أعواد مارشميلو 2</div>
+        <div class="fruit-weight">10 الاثنين</div>
         <div class="price-row"><div class="price-badge">8<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
         <button class="add-btn" onclick="addToCart('أعواد فواكه',8,this)">
           <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
@@ -1205,12 +1254,12 @@
     </div>
 <div class="card">
       <div class="photo-wrap">
-        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM.jpeg" alt="أعواد فواكه" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="WhatsApp Image 2026-09-12 at 1.13.05 AM (1).jpeg" alt="أعواد حامض كهرباء او حلو" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🍡</span>images/fruit-sticks.jpg</div>
       </div>
       <div class="card-body">
-        <div class="fruit-name">أعواد مارشميلو</div>
-        <div class="fruit-weight">12 عود</div>
+        <div class="fruit-name">أعواد حامض كهرباء او حلو 2</div>
+        <div class="fruit-weight">10 الاثنين </div>
         <div class="price-row"><div class="price-badge">8<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
         <button class="add-btn" onclick="addToCart('أعواد فواكه',8,this)">
           <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
@@ -1333,6 +1382,17 @@
             </div>
           </label>
         </div>
+
+        <div class="cv-section-title" style="margin-top:18px;">🤍 تبرع لمنصة إحسان</div>
+        <p style="margin:0 0 12px; text-align:right; font-family:'Cairo', sans-serif; font-weight:700; font-size:14px; color: var(--brown-deep); line-height:1.9;">نتبرع بجزء من أرباح طلبك تلقائيًا لمنصة إحسان. لو ودك تساهم بتبرع إضافي من عندك، اختر المبلغ:</p>
+        <div class="donation-options" id="donation-options">
+          <button class="donation-chip active" data-amount="0" onclick="setDonation(0, this)">بدون تبرع إضافي</button>
+          <button class="donation-chip" data-amount="5" onclick="setDonation(5, this)">5 ريال</button>
+          <button class="donation-chip" data-amount="10" onclick="setDonation(10, this)">10 ريال</button>
+          <button class="donation-chip" data-amount="20" onclick="setDonation(20, this)">20 ريال</button>
+          <button class="donation-chip" data-amount="50" onclick="setDonation(50, this)">50 ريال</button>
+        </div>
+        <p style="margin:0 0 4px; text-align:right; font-family:'Cairo', sans-serif; font-weight:600; font-size:13px; color: var(--olive-deep); line-height:1.8;">التبرع الإضافي يُضاف كبند منفصل في طلبك ويُحوَّل بالكامل لمنصة إحسان الخيرية.</p>
 
         <div class="cv-summary">
           <div class="cv-summary-row">
@@ -1486,6 +1546,16 @@
     renderCartView();
   }
 
+  function setDonation(amount, btnEl){
+    const DONATION_NAME = 'تبرع - لمنصة إحسان';
+    cart = cart.filter(i => i.name !== DONATION_NAME);
+    if(amount > 0){
+      cart.push({ name: DONATION_NAME, price: amount, qty: 1 });
+    }
+    saveCart();
+    renderCartView();
+  }
+
   function renderCartView(){
     const emptyState = document.getElementById('cv-empty-state');
     const cvContent = document.getElementById('cv-content');
@@ -1541,6 +1611,15 @@
     }
     grandTotalEl.textContent = grandTotal + ' ريال';
     checkoutBtn.disabled = !selectedPayment;
+
+    const donationItem = cart.find(i => i.name === 'تبرع - منصة إحسان');
+    document.querySelectorAll('.donation-chip').forEach(b => {
+      const isActive = donationItem
+        ? parseInt(b.dataset.amount) === donationItem.price
+        : b.dataset.amount === '0';
+      b.classList.toggle('active', isActive);
+    });
+
     updateCartFab();
   }
 
