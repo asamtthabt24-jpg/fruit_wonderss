@@ -336,27 +336,6 @@
     backdrop-filter: blur(2px);
   }
 
-  .howto{
-    max-width: 620px;
-    margin: 10px auto 0;
-    background: rgba(124,138,79,0.08);
-    border: 1px dashed rgba(124,138,79,0.4);
-    border-radius: 14px;
-    padding: 16px 20px;
-    font-family:'Cairo', sans-serif;
-    font-size: 13px;
-    color: var(--olive-deep);
-    line-height: 2;
-  }
-  .howto b{ color: var(--brown-deep); }
-  .howto code{
-    background: rgba(107,66,38,0.08);
-    padding: 1px 7px;
-    border-radius: 6px;
-    font-family: monospace;
-    unicode-bidi: plaintext;
-  }
-
   footer{
     position:relative; z-index:1;
     text-align:center;
@@ -942,7 +921,6 @@
     box-shadow: 0 6px 16px rgba(95,107,58,0.3);
   }
 
-  /* ===== لعبة اختر الصندوق (مودال في نص الشاشة) ===== */
   /* ===== صفحة تفاصيل المنتج ===== */
   #view-product{ display:none; }
   .product-modal-photo{
@@ -1309,6 +1287,80 @@
   @media (max-width: 560px){
     .game-box{ width:64px; height:64px; font-size:28px; }
   }
+
+  /* ===== قسم آراء العملاء بالصفحة الرئيسية ===== */
+  .home-reviews-section{
+    margin-top: 50px;
+  }
+  .home-reviews-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .home-review-card{
+    display:block;
+    width:100%;
+    text-align:right;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: 18px;
+    padding: 16px 18px;
+    cursor:pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+    font-family:'Tajawal', sans-serif;
+  }
+  .home-review-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(107,66,38,0.14);
+  }
+  .home-review-card .hr-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .home-review-card .hr-product{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:13.5px;
+    color: var(--terracotta-deep);
+    background: rgba(203,106,62,0.10);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+  .home-review-card .hr-stars{
+    color: var(--terracotta);
+    font-size:14px;
+    letter-spacing:1px;
+  }
+  .home-review-card .hr-comment{
+    font-size:13.5px;
+    color: var(--brown-deep);
+    line-height:1.8;
+    margin-bottom:8px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .home-review-card .hr-cta{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    color: var(--olive-deep);
+  }
+  .home-reviews-empty{
+    font-family:'Cairo', sans-serif;
+    font-size:13px;
+    color: var(--muted);
+    text-align:center;
+    padding: 20px 0;
+  }
+  @media (max-width: 560px){
+    .home-reviews-grid{ grid-template-columns: repeat(2, 1fr); gap:10px; }
+    .home-review-card{ padding:12px 14px; }
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -1411,7 +1463,7 @@
           <option value="أناناس">أناناس</option>
           <option value="توت">توت</option>
           <option value="فروله">فروله</option>
-          <option value="بشن فروت">بشن فروت</option>
+          <option value="البشن فروت">البشن فروت</option>
           <option value="موز">موز</option>
           <option value="خوخ">خوخ</option>
           <option value="تين مجفف">تين مجفف</option>
@@ -1447,7 +1499,7 @@
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="كيوي" onchange="enforceFamilyLimit()">كيوي</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="فروله" onchange="enforceFamilyLimit()">فروله</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="شمندر" onchange="enforceFamilyLimit()">شمندر</label>
-          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="بشن فروت" onchange="enforceFamilyLimit()">بشن فروت</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="البشن فروت" onchange="enforceFamilyLimit()">البشن فروت</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="موز" onchange="enforceFamilyLimit()">موز</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="خوخ" onchange="enforceFamilyLimit()">خوخ</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="برتقال" onchange="enforceFamilyLimit()">برتقال</label>
@@ -1581,14 +1633,14 @@
 
     <div class="card">
       <div class="photo-wrap">
-        <img src="Customized-Freeze-Dried-Honey-Passion-Fruit-100-Fresh-Frozen-Passion-Fruit-Great-for-Beverages-and-Syrups.webp" alt="بشن فروت" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="Customized-Freeze-Dried-Honey-Passion-Fruit-100-Fresh-Frozen-Passion-Fruit-Great-for-Beverages-and-Syrups.webp" alt="البشن فروت" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🟡</span>images/atf.jpg</div>
       </div>
       <div class="card-body">
-        <div class="fruit-name">بشن فروت</div>
+        <div class="fruit-name">البشن فروت</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <button class="add-btn" onclick="addToCart('بشن فروت',15,this)">
+        <button class="add-btn" onclick="addToCart('البشن فروت',15,this)">
           <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
           أضف للسلة
         </button>
@@ -1802,6 +1854,13 @@
   </div>
   </div>
 
+  <div class="home-reviews-section">
+    <div class="divider"><div class="line"></div><div class="label">آراء عملائنا</div><div class="line"></div></div>
+    <div class="home-reviews-grid" id="home-reviews-grid">
+      <div class="home-reviews-empty">جارٍ تحميل الآراء...</div>
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -1918,7 +1977,7 @@
   </div>
 </div>
 
-<!-- ===== مودال تفاصيل المنتج ===== -->
+<!-- ===== صفحة تفاصيل المنتج ===== -->
 <div id="view-product">
   <div class="cv-page">
     <div class="cv-topbar">
@@ -1971,7 +2030,7 @@
 <div class="game-modal-backdrop" id="game-modal-backdrop" onclick="if(event.target===this) closeGameModal();">
   <div class="game-modal">
     <button class="game-modal-close" onclick="closeGameModal()" aria-label="إغلاق">✕</button>
-    <div class="game-title">🎁 العب واربح هدية مجانية!</div>
+    <div class="game-title">🎁  العب واربح هدية مجانية!</div>
     <div class="game-desc">اختر صندوق من الثلاثة وشوف وش ربحت</div>
     <div class="game-status" id="game-status"></div>
     <div class="game-prize-photo" id="game-prize-photo" style="display:none;">
@@ -2480,7 +2539,7 @@
     });
   }
 
-  /* ===== مودال تفاصيل المنتج ===== */
+  /* ===== صفحة تفاصيل المنتج ===== */
   let currentProduct = null;
   let selectedRating = 0;
 
@@ -2505,6 +2564,15 @@
       soldOut: cardEl.classList.contains('sold-out'),
       cardEl: cardEl
     };
+  }
+
+  function findCardByProductName(name){
+    const cards = document.querySelectorAll('.grid .card');
+    for(const card of cards){
+      const nameEl = card.querySelector('.fruit-name');
+      if(nameEl && nameEl.textContent.trim() === name) return card;
+    }
+    return null;
   }
 
   function openProductModal(cardEl){
@@ -2603,14 +2671,8 @@
     const params = new URLSearchParams(window.location.search);
     const productParam = params.get('product');
     if(!productParam) return;
-    const cards = document.querySelectorAll('.grid .card');
-    for(const card of cards){
-      const nameEl = card.querySelector('.fruit-name');
-      if(nameEl && nameEl.textContent.trim() === productParam){
-        openProductModal(card);
-        break;
-      }
-    }
+    const card = findCardByProductName(productParam);
+    if(card) openProductModal(card);
   }
 
   function setSelectedRating(n){
@@ -2647,6 +2709,7 @@
     setSelectedRating(0);
     submitBtn.disabled = false;
     loadProductReviews(currentProduct.name);
+    loadHomeReviews();
   }
 
   async function loadProductReviews(productName){
@@ -2694,6 +2757,58 @@
     }
   }
 
+  /* ===== آراء العملاء بالصفحة الرئيسية ===== */
+  async function loadHomeReviews(){
+    const gridEl = document.getElementById('home-reviews-grid');
+    if(!gridEl) return;
+
+    if(!sb){
+      gridEl.innerHTML = '<div class="home-reviews-empty">التقييمات غير متاحة حاليًا</div>';
+      return;
+    }
+
+    try{
+      const { data, error } = await sb
+        .from('product_reviews')
+        .select('product_name, rating, comment, created_at')
+        .not('comment', 'is', null)
+        .order('created_at', { ascending: false })
+        .limit(8);
+      if(error) throw error;
+
+      if(!data || data.length === 0){
+        gridEl.innerHTML = '<div class="home-reviews-empty">ما فيه آراء بعد — كونوا أول من يشاركنا رأيه!</div>';
+        return;
+      }
+
+      gridEl.innerHTML = data.map((r, i) => {
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+        return `<button class="home-review-card" data-index="${i}">
+          <div class="hr-top">
+            <span class="hr-product">${escapeHtml(r.product_name)}</span>
+            <span class="hr-stars">${stars}</span>
+          </div>
+          <div class="hr-comment">${escapeHtml(r.comment)}</div>
+          <div class="hr-cta">اطلب ${escapeHtml(r.product_name)} ←</div>
+        </button>`;
+      }).join('');
+
+      gridEl.querySelectorAll('.home-review-card').forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          const card = findCardByProductName(data[i].product_name);
+          if(card){
+            openProductModal(card);
+          } else {
+            showMenuView();
+          }
+        });
+      });
+    }catch(e){
+      console.error('home reviews load error', e);
+      gridEl.innerHTML = '<div class="home-reviews-empty">تعذر تحميل الآراء</div>';
+    }
+  }
+
   document.querySelectorAll('.grid .card').forEach(card => {
     card.style.cursor = 'pointer';
     card.addEventListener('click', function(e){
@@ -2706,6 +2821,7 @@
   updateGameAreas();
   initVisitorCounter();
   initOrderCounter();
+  loadHomeReviews();
   openSharedProductFromUrl();
 </script>
 
