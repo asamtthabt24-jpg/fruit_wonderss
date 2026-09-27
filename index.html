@@ -858,6 +858,24 @@
   }
   .cv-checkout-btn svg{ width:20px; height:20px; fill:#fff; flex-shrink:0; }
   .cv-checkout-btn:disabled{ opacity:0.45; cursor:not-allowed; }
+  .min-order-banner{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:6px;
+    background: linear-gradient(135deg, var(--terracotta), var(--terracotta-deep));
+    color:#fff;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:13.5px;
+    line-height:1.7;
+    padding: 12px 16px;
+    border-radius: 14px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(180,85,48,0.3);
+  }
+
   .cv-hint{
     text-align:center;
     font-family:'Cairo', sans-serif;
@@ -1033,12 +1051,20 @@
     box-shadow: 0 8px 18px rgba(107,66,38,0.14);
   }
   .related-product-thumb .thumb-photo{
+    position:relative;
     width:100%;
     aspect-ratio: 1 / 1;
     overflow:hidden;
     background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
   }
   .related-product-thumb .thumb-photo img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+  .related-product-thumb .thumb-placeholder{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px;
+    opacity:0.55;
+  }
+  .related-product-thumb .thumb-photo img:not([src=""]):not([data-broken]) ~ .thumb-placeholder{ display:none; }
   .related-product-thumb .thumb-name{
     font-family:'Cairo', sans-serif;
     font-weight:800;
@@ -1288,7 +1314,7 @@
 </head>
 <body>
 
-<a class="top-announcement" href="" target="_blank" rel="noopener">
+<a class="top-announcement" href="https://ehsan.sa" target="_blank" rel="noopener">
   🤍 نتبرع بجزء من أرباح كل طلب لمنصة إحسان الخيرية
 </a>
 
@@ -1299,7 +1325,10 @@
   <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
   <h1>روائع الفاكهة</h1>
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
-  
+  <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+    تواصل معنا عبر واتساب
+  </a>
 
   <div class="visitor-counter">
     <div class="stat-pill">
@@ -1382,7 +1411,7 @@
           <option value="أناناس">أناناس</option>
           <option value="توت">توت</option>
           <option value="فروله">فروله</option>
-          <option value="البشن فروت">البشن فروت</option>
+          <option value="بشن فروت">بشن فروت</option>
           <option value="موز">موز</option>
           <option value="خوخ">خوخ</option>
           <option value="تين مجفف">تين مجفف</option>
@@ -1418,7 +1447,7 @@
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="كيوي" onchange="enforceFamilyLimit()">كيوي</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="فروله" onchange="enforceFamilyLimit()">فروله</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="شمندر" onchange="enforceFamilyLimit()">شمندر</label>
-          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="البشن فروت" onchange="enforceFamilyLimit()">البشن فروت</label>
+          <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="بشن فروت" onchange="enforceFamilyLimit()">بشن فروت</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="موز" onchange="enforceFamilyLimit()">موز</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="خوخ" onchange="enforceFamilyLimit()">خوخ</label>
           <label class="fruit-checkbox"><input type="checkbox" class="family-checkbox" value="برتقال" onchange="enforceFamilyLimit()">برتقال</label>
@@ -1552,14 +1581,14 @@
 
     <div class="card">
       <div class="photo-wrap">
-        <img src="Customized-Freeze-Dried-Honey-Passion-Fruit-100-Fresh-Frozen-Passion-Fruit-Great-for-Beverages-and-Syrups.webp" alt="البشن فروت" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        <img src="Customized-Freeze-Dried-Honey-Passion-Fruit-100-Fresh-Frozen-Passion-Fruit-Great-for-Beverages-and-Syrups.webp" alt="بشن فروت" loading="lazy" onerror="this.setAttribute('data-broken','1')">
         <div class="placeholder"><span class="icon">🟡</span>images/atf.jpg</div>
       </div>
       <div class="card-body">
-        <div class="fruit-name">البشن فروت</div>
+        <div class="fruit-name">بشن فروت</div>
         <div class="fruit-weight">50 غرام</div>
         <div class="price-row"><div class="price-badge">15<span class="cur">ريال</span></div><div class="per-g">للعلبة</div></div>
-        <button class="add-btn" onclick="addToCart('البشن فروت',15,this)">
+        <button class="add-btn" onclick="addToCart('بشن فروت',15,this)">
           <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
           أضف للسلة
         </button>
@@ -1942,7 +1971,7 @@
 <div class="game-modal-backdrop" id="game-modal-backdrop" onclick="if(event.target===this) closeGameModal();">
   <div class="game-modal">
     <button class="game-modal-close" onclick="closeGameModal()" aria-label="إغلاق">✕</button>
-    <div class="game-title">🎁  العب واربح هدية مجانية!</div>
+    <div class="game-title">🎁 العب واربح هدية مجانية!</div>
     <div class="game-desc">اختر صندوق من الثلاثة وشوف وش ربحت</div>
     <div class="game-status" id="game-status"></div>
     <div class="game-prize-photo" id="game-prize-photo" style="display:none;">
@@ -2370,8 +2399,10 @@
     checkoutBtn.disabled = !selectedPayment || belowMin;
     if(checkoutHint){
       if(belowMin){
-        checkoutHint.textContent = `فزت بهدية، فلازم يوصل طلبك ${ORDER_MIN_TOTAL} ريال — ينقصك ${ORDER_MIN_TOTAL - productsTotal} ريال`;
+        checkoutHint.className = 'min-order-banner';
+        checkoutHint.textContent = `🎁 فزت بهدية! لازم طلبك يوصل ${ORDER_MIN_TOTAL} ريال عشان تقدر تطلب — ينقصك ${ORDER_MIN_TOTAL - productsTotal} ريال`;
       } else {
+        checkoutHint.className = 'cv-hint';
         checkoutHint.textContent = 'اختر طريقة الدفع قبل إتمام الطلب';
       }
     }
@@ -2532,7 +2563,10 @@
     stripEl.innerHTML = siblings.map((sib, i) => {
       const p = parseProductFromCard(sib);
       return `<button class="related-product-thumb" data-index="${i}">
-        <span class="thumb-photo"><img src="${p.img}" alt="${p.alt}"></span>
+        <span class="thumb-photo">
+          <img src="${p.img}" alt="${p.alt}" onerror="this.setAttribute('data-broken','1')">
+          <span class="thumb-placeholder">🍓</span>
+        </span>
         <span class="thumb-name">${p.name}</span>
       </button>`;
     }).join('');
