@@ -1364,13 +1364,19 @@
     margin-top: 50px;
   }
   .home-reviews-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    display:flex;
     gap: 16px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding-bottom:8px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
   }
   .home-review-card{
     display:block;
-    width:100%;
+    flex: 0 0 auto;
+    width:240px;
+    scroll-snap-align:start;
     text-align:right;
     background: var(--card);
     border: 1px solid var(--card-edge);
@@ -1429,8 +1435,8 @@
     padding: 20px 0;
   }
   @media (max-width: 560px){
-    .home-reviews-grid{ grid-template-columns: repeat(2, 1fr); gap:10px; }
-    .home-review-card{ padding:12px 14px; }
+    .home-reviews-grid{ gap:10px; }
+    .home-review-card{ width:200px; padding:12px 14px; }
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
