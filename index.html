@@ -46,15 +46,43 @@
     text-align:center;
     z-index:1;
   }
-  .logo{
-    width: 128px; height:128px;
-    margin: 0 auto 18px;
-    border-radius:50%;
+  .ad-banner{
+    position:relative;
+    width:100%;
+    max-width: 520px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 22px;
+    border-radius: 20px;
     overflow:hidden;
-    background: var(--card);
-    box-shadow: 0 8px 24px rgba(107,66,38,0.18), 0 0 0 5px var(--card), 0 0 0 6px var(--card-edge);
+    background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
+    border: 1px solid var(--card-edge);
+    box-shadow: 0 8px 24px rgba(107,66,38,0.12);
   }
-  .logo img{ width:100%; height:100%; object-fit:cover; }
+  .ad-banner img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
+  .ad-banner .placeholder{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px;
+    color: var(--muted);
+    font-family:'Cairo', sans-serif;
+    font-size:12px;
+    text-align:center;
+    padding: 0 10px;
+  }
+  .ad-banner .placeholder .icon{ font-size:32px; opacity:0.55; }
+  .ad-banner img:not([src=""]):not([data-broken]) ~ .placeholder{ display:none; }
+  .ad-banner .carousel-track{ width:100%; height:100%; position:relative; }
+  .ad-banner .carousel-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    transition: opacity .3s ease;
+    pointer-events:none;
+  }
+  .ad-banner .carousel-slide.active{ opacity:1; pointer-events:auto; }
+  .ad-banner .carousel-slide img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+  @media (max-width: 560px){
+    .ad-banner{ max-width: 100%; border-radius:16px; margin-bottom:16px; }
+  }
 
   .eyebrow{
     font-family:'Cairo', sans-serif;
@@ -793,6 +821,49 @@
   }
   .cv-notes-textarea:focus{ border-color: var(--terracotta); }
 
+  .discount-row-input{ display:flex; gap:8px; margin-bottom:8px; }
+  .discount-input{
+    flex:1; min-width:0;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color: var(--brown-deep);
+    background:#fff;
+    border:1.5px solid var(--card-edge);
+    border-radius:999px;
+    padding: 11px 18px;
+    outline:none;
+  }
+  .discount-input:focus{ border-color: var(--terracotta); }
+  .discount-input:disabled{ background: rgba(124,138,79,0.08); color: var(--olive-deep); }
+  .discount-apply-btn{
+    flex:0 0 auto;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:13.5px;
+    color:#fff;
+    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
+    border:none;
+    border-radius:999px;
+    padding: 0 22px;
+    cursor:pointer;
+  }
+  .discount-apply-btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .discount-message{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    line-height:1.7;
+    min-height:4px;
+    margin-bottom:4px;
+  }
+  .discount-message.ok{ color: var(--olive-deep); }
+  .discount-message.warn{ color: var(--terracotta-deep); }
+  .discount-message.err{ color:#b5342c; }
+  .cv-summary-row.cv-discount-row{ color: var(--olive-deep); font-weight:800; }
+
   .cv-summary{
     background: var(--card);
     border: 1px solid var(--card-edge);
@@ -1373,9 +1444,11 @@
 <div id="view-menu">
 
 <header>
-  <div class="logo"><img src="9333c9bc733195a2a7289f8572891d75~tplv-tiktokx-cropcenter_1080_1080.jpeg" alt="روائع الفاكهة"></div>
+  <div class="ad-banner" id="ad-banner">
+    <img src="" alt="إعلان" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+    <div class="placeholder"><span class="icon">📢</span>images/ad-banner.jpg</div>
+  </div>
   <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
-  <h1>روائع الفاكهة</h1>
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
   <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
@@ -1951,10 +2024,21 @@
         <div class="cv-section-title" style="margin-top:18px;">📝 ملاحظات على الطلب (اختياري)</div>
         <textarea id="cv-order-notes" class="cv-notes-textarea" placeholder="مثال: بدون سكر، اتصل قبل التوصيل، إلخ..." rows="3"></textarea>
 
+        <div class="cv-section-title" style="margin-top:18px;">🏷️ كود الخصم</div>
+        <div class="discount-row-input">
+          <input id="discount-input" class="discount-input" type="text" dir="ltr" placeholder="اكتب كود الخصم" autocomplete="off" autocapitalize="characters" onkeydown="if(event.key==='Enter'){toggleDiscountCode();}">
+          <button id="discount-apply-btn" class="discount-apply-btn" onclick="toggleDiscountCode()">تطبيق</button>
+        </div>
+        <div id="discount-message" class="discount-message"></div>
+
         <div class="cv-summary">
           <div class="cv-summary-row">
             <span>إجمالي المنتجات</span>
             <span id="cv-products-subtotal">0 ريال</span>
+          </div>
+          <div class="cv-summary-row cv-discount-row" id="cv-discount-row" style="display:none;">
+            <span id="cv-discount-label">خصم</span>
+            <span id="cv-discount-amount">0 ريال</span>
           </div>
           <div class="cv-summary-row" id="cv-delivery-row" style="display:none;">
             <span>رسوم التوصيل</span>
@@ -2146,7 +2230,7 @@
     goToCarouselSlide(carousel, activeIndex + 1);
   }
 
-  document.querySelectorAll('.carousel').forEach(carousel => {
+  function attachCarouselSwipe(carousel){
     let touchStartX = 0;
     carousel.addEventListener('touchstart', e => {
       touchStartX = e.changedTouches[0].screenX;
@@ -2159,7 +2243,9 @@
       const activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
       goToCarouselSlide(carousel, diff < 0 ? activeIndex + 1 : activeIndex - 1);
     }, { passive: true });
-  });
+  }
+
+  document.querySelectorAll('.carousel').forEach(attachCarouselSwipe);
 
   /* ===== إعداد Supabase ===== */
   const SUPABASE_URL = "https://kbbyxsdtsaobqaclzynl.supabase.co";
@@ -2175,6 +2261,69 @@
       try{ localStorage.setItem('rawae_device_id', id); }catch(e){}
     }
     return id;
+  }
+
+  /* ===== بانر الإعلانات (من قاعدة البيانات) ===== */
+  function escapeAttr(str){
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function startAdsAutoplay(el){
+    const INTERVAL = 4500;
+    const next = () => {
+      const slides = el.querySelectorAll('.carousel-slide');
+      const i = Array.from(slides).findIndex(s => s.classList.contains('active'));
+      goToCarouselSlide(el, i + 1);
+    };
+    let timer = setInterval(next, INTERVAL);
+    const pause = () => clearInterval(timer);
+    const resume = () => { clearInterval(timer); timer = setInterval(next, INTERVAL); };
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', () => setTimeout(resume, 6000), { passive: true });
+    el.addEventListener('mouseenter', pause);
+    el.addEventListener('mouseleave', resume);
+  }
+
+  async function loadAdsBanner(){
+    const bannerEl = document.getElementById('ad-banner');
+    if(!bannerEl || !sb) return;
+
+    try{
+      const { data, error } = await sb
+        .from('ads')
+        .select('image_url')
+        .eq('active', true)
+        .order('sort_order', { ascending: true });
+      if(error) throw error;
+      if(!data || data.length === 0) return;
+
+      bannerEl.classList.add('carousel');
+      const slidesHtml = data.map((ad, i) => `
+        <div class="carousel-slide${i === 0 ? ' active' : ''}">
+          <img src="${escapeAttr(ad.image_url)}" alt="إعلان" loading="lazy" onerror="this.setAttribute('data-broken','1')">
+        </div>
+      `).join('');
+
+      if(data.length > 1){
+        const dotsHtml = data.map((_, i) => `<span class="dot${i === 0 ? ' active' : ''}"></span>`).join('');
+        bannerEl.innerHTML = `
+          <div class="carousel-track">${slidesHtml}</div>
+          <button class="carousel-arrow carousel-prev" onclick="changeCarousel(this)" aria-label="الإعلان التالي">‹</button>
+          <button class="carousel-arrow carousel-next" onclick="changeCarousel(this)" aria-label="الإعلان التالي">›</button>
+          <div class="carousel-dots">${dotsHtml}</div>
+        `;
+        attachCarouselSwipe(bannerEl);
+        startAdsAutoplay(bannerEl);
+      } else {
+        bannerEl.innerHTML = `<div class="carousel-track">${slidesHtml}</div>`;
+      }
+    }catch(e){
+      console.error('ads banner load error', e);
+    }
   }
 
   /* ===== عداد الزوار عبر Supabase ===== */
@@ -2397,6 +2546,90 @@
     renderCartView();
   }
 
+  /* ===== أكواد الخصم ===== */
+  let appliedDiscount = null; // { code, type, value, min_order }
+
+  function eligibleSubtotal(){
+    return cart
+      .filter(i => i.name !== 'تبرع - منصة إحسان')
+      .reduce((sum, i) => sum + lineSubtotal(i), 0);
+  }
+
+  function calcDiscount(){
+    if(!appliedDiscount) return 0;
+    const base = eligibleSubtotal();
+    if(base <= 0 || base < appliedDiscount.min_order) return 0;
+    const raw = appliedDiscount.type === 'percent'
+      ? base * appliedDiscount.value / 100
+      : appliedDiscount.value;
+    return Math.min(base, Math.round(raw));
+  }
+
+  function setDiscountMessage(text, kind){
+    const el = document.getElementById('discount-message');
+    if(!el) return;
+    el.textContent = text || '';
+    el.className = 'discount-message' + (kind ? ' ' + kind : '');
+  }
+
+  function updateDiscountUI(){
+    const applyBtn = document.getElementById('discount-apply-btn');
+    const inputEl = document.getElementById('discount-input');
+    if(applyBtn) applyBtn.textContent = appliedDiscount ? 'إزالة' : 'تطبيق';
+    if(inputEl) inputEl.disabled = !!appliedDiscount;
+    if(!appliedDiscount) return;
+    const label = appliedDiscount.type === 'percent'
+      ? `${appliedDiscount.value}%`
+      : `${appliedDiscount.value} ريال`;
+    const base = eligibleSubtotal();
+    if(base < appliedDiscount.min_order){
+      setDiscountMessage(`الكود ${appliedDiscount.code} (خصم ${label}) يحتاج طلب ${appliedDiscount.min_order} ريال — ينقصك ${appliedDiscount.min_order - base} ريال`, 'warn');
+    } else {
+      setDiscountMessage(`✓ تم تطبيق ${appliedDiscount.code} — خصم ${label}`, 'ok');
+    }
+  }
+
+  async function toggleDiscountCode(){
+    const inputEl = document.getElementById('discount-input');
+    if(appliedDiscount){
+      appliedDiscount = null;
+      if(inputEl) inputEl.value = '';
+      setDiscountMessage('', '');
+      renderCartView();
+      return;
+    }
+    const code = inputEl ? inputEl.value.trim() : '';
+    if(!code){ setDiscountMessage('اكتب كود الخصم أول', 'err'); return; }
+    if(!sb){ setDiscountMessage('أكواد الخصم غير متاحة حاليًا', 'err'); return; }
+    const btn = document.getElementById('discount-apply-btn');
+    if(btn) btn.disabled = true;
+    try{
+      const { data, error } = await sb.rpc('validate_discount_code', { p_code: code });
+      if(error) throw error;
+      if(!data || !data.valid){
+        setDiscountMessage((data && data.message) || 'الكود غير صحيح', 'err');
+      } else {
+        appliedDiscount = {
+          code: data.code,
+          type: data.type,
+          value: Number(data.value),
+          min_order: Number(data.min_order) || 0
+        };
+        renderCartView();
+      }
+    }catch(e){
+      console.error('discount validate error', e);
+      setDiscountMessage('تعذر التحقق من الكود، حاول مرة ثانية', 'err');
+    }
+    if(btn) btn.disabled = false;
+  }
+
+  async function redeemDiscountCode(code){
+    if(!sb) return;
+    try{ await sb.rpc('redeem_discount_code', { p_code: code }); }
+    catch(e){ console.error('discount redeem error', e); }
+  }
+
   function renderCartView(){
     const emptyState = document.getElementById('cv-empty-state');
     const cvContent = document.getElementById('cv-content');
@@ -2435,7 +2668,8 @@
     const productsTotal = cartTotal();
     const deliveryInfo = selectedPayment ? DELIVERY[selectedPayment] : null;
     const deliveryFee = deliveryInfo ? deliveryInfo.price : 0;
-    const grandTotal = productsTotal + deliveryFee;
+    const discount = calcDiscount();
+    const grandTotal = productsTotal + deliveryFee - discount;
 
     // تحديث الأسعار المعروضة بجانب كل طريقة دفع
     const codPriceEl = document.getElementById('cod-price');
@@ -2451,6 +2685,18 @@
       deliveryRow.style.display = 'none';
     }
     grandTotalEl.textContent = grandTotal + ' ريال';
+
+    const discountRow = document.getElementById('cv-discount-row');
+    if(discountRow){
+      if(discount > 0){
+        discountRow.style.display = 'flex';
+        document.getElementById('cv-discount-label').textContent = `خصم (${appliedDiscount.code})`;
+        document.getElementById('cv-discount-amount').textContent = '−' + discount + ' ريال';
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+    updateDiscountUI();
 
     const checkoutHint = document.getElementById('cv-checkout-hint');
     const hasGift = cart.some(i => i.freeQty);
@@ -2485,7 +2731,8 @@
     if(hasGift && productsTotal < ORDER_MIN_TOTAL) return;
     const deliveryInfo = DELIVERY[selectedPayment];
     const deliveryFee = deliveryInfo.price;
-    const grandTotal = productsTotal + deliveryFee;
+    const discount = calcDiscount();
+    const grandTotal = productsTotal + deliveryFee - discount;
 
     let msg = "🧾 طلب جديد - روائع الفاكهة\n\n";
     cart.forEach((item, idx) => {
@@ -2494,6 +2741,9 @@
     });
     msg += "\n————————————————\n";
     msg += `إجمالي المنتجات: ${productsTotal} ريال\n`;
+    if(discount > 0){
+      msg += `كود الخصم: ${appliedDiscount.code} (−${discount} ريال)\n`;
+    }
     msg += `طريقة الدفع: ${deliveryInfo.label}\n`;
     msg += `شركة التوصيل: ${deliveryInfo.company}\n`;
     msg += `رسوم التوصيل: ${deliveryFee} ريال\n`;
@@ -2508,9 +2758,15 @@
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     recordOrder();
+    if(discount > 0) redeemDiscountCode(appliedDiscount.code);
 
     cart = [];
     selectedPayment = null;
+    appliedDiscount = null;
+    const discountInput = document.getElementById('discount-input');
+    if(discountInput) discountInput.value = '';
+    setDiscountMessage('', '');
+    updateDiscountUI();
     if(notesEl) notesEl.value = '';
     document.querySelectorAll('input[name="cv-payment"]').forEach(r => r.checked = false);
     saveCart();
@@ -2822,6 +3078,7 @@
   initVisitorCounter();
   initOrderCounter();
   loadHomeReviews();
+  loadAdsBanner();
   openSharedProductFromUrl();
 </script>
 
