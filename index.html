@@ -79,7 +79,7 @@
     pointer-events:none;
   }
   .ad-banner .carousel-slide.active{ opacity:1; pointer-events:auto; }
-  .ad-banner .carousel-slide img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+  .ad-banner .carousel-slide img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
   @media (max-width: 560px){
     .ad-banner{ max-width: 100%; border-radius:16px; margin-bottom:16px; }
   }
@@ -908,24 +908,6 @@
   }
   .cv-checkout-btn svg{ width:20px; height:20px; fill:#fff; flex-shrink:0; }
   .cv-checkout-btn:disabled{ opacity:0.45; cursor:not-allowed; }
-  .min-order-banner{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    gap:6px;
-    background: linear-gradient(135deg, var(--terracotta), var(--terracotta-deep));
-    color:#fff;
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    font-size:13.5px;
-    line-height:1.7;
-    padding: 12px 16px;
-    border-radius: 14px;
-    margin-top: 10px;
-    box-shadow: 0 4px 12px rgba(180,85,48,0.3);
-  }
-
   .cv-hint{
     text-align:center;
     font-family:'Cairo', sans-serif;
@@ -958,38 +940,6 @@
     border-color: var(--olive-deep);
     color:#fff;
     box-shadow: 0 3px 10px rgba(95,107,58,0.35);
-  }
-
-  /* ===== بطاقة اليوم الوطني ===== */
-  .feature-card.national-day{
-    border-color: var(--olive);
-    background: linear-gradient(180deg, #f6f8ee, #fbf6ec);
-  }
-  .feature-card.national-day .new-badge{
-    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
-    box-shadow: 0 3px 10px rgba(95,107,58,0.4);
-  }
-  .feature-card.national-day .feature-price-row .price-badge{
-    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
-    box-shadow: 0 3px 10px rgba(95,107,58,0.35);
-  }
-  .national-day-list{
-    display:flex; flex-wrap:wrap; gap:7px;
-    margin-bottom:16px;
-  }
-  .national-day-list span{
-    font-family:'Cairo', sans-serif;
-    font-size:12px;
-    font-weight:700;
-    color: var(--olive-deep);
-    background: rgba(124,138,79,0.10);
-    border: 1px solid rgba(124,138,79,0.35);
-    border-radius: 999px;
-    padding: 5px 12px;
-  }
-  .feature-card.national-day .btn-order-feature{
-    background: linear-gradient(160deg, var(--olive), var(--olive-deep));
-    box-shadow: 0 6px 16px rgba(95,107,58,0.3);
   }
 
   /* ===== صفحة تفاصيل المنتج ===== */
@@ -1194,91 +1144,6 @@
     padding: 6px 0;
   }
 
-  .game-modal-backdrop{
-    display:none;
-    position:fixed; inset:0;
-    background: rgba(74,45,24,0.55);
-    z-index: 100;
-    align-items:center;
-    justify-content:center;
-    padding: 20px;
-  }
-  .game-modal-backdrop.open{ display:flex; }
-  .game-modal{
-    position:relative;
-    width:100%;
-    max-width: 380px;
-    background: linear-gradient(180deg, #fdf3e2, #fbf6ec);
-    border: 1.5px dashed var(--terracotta);
-    border-radius: 22px;
-    padding: 26px 22px 24px;
-    text-align:center;
-    box-shadow: 0 18px 40px rgba(74,45,24,0.35);
-  }
-  .game-modal-close{
-    position:absolute; top:12px; left:12px;
-    width:30px; height:30px;
-    border-radius:50%;
-    border:none;
-    background: rgba(107,66,38,0.1);
-    color: var(--brown-deep);
-    font-size:15px;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .game-title{
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    font-size:19px;
-    color: var(--brown-deep);
-    margin-bottom:6px;
-  }
-  .game-desc{
-    font-family:'Cairo', sans-serif;
-    font-size:13px;
-    color: var(--muted);
-    margin-bottom:16px;
-  }
-  .game-status{
-    font-family:'Cairo', sans-serif;
-    font-weight:700;
-    font-size:13.5px;
-    color: var(--terracotta-deep);
-    margin-bottom:16px;
-    min-height:20px;
-  }
-  .game-boxes{
-    display:flex;
-    justify-content:center;
-    gap:16px;
-    flex-wrap:wrap;
-  }
-  .game-box{
-    width:74px; height:74px;
-    font-size:32px;
-    background: var(--card);
-    border: 2px solid var(--card-edge);
-    border-radius: 16px;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-  }
-  .game-box:hover:not(:disabled){
-    transform: translateY(-3px) scale(1.04);
-    border-color: var(--terracotta);
-    box-shadow: 0 8px 18px rgba(180,85,48,0.25);
-  }
-  .game-box:disabled{ opacity:0.5; cursor:not-allowed; }
-  .game-prize-photo{
-    width:120px; height:120px;
-    margin: 4px auto 14px;
-    border-radius: 18px;
-    overflow:hidden;
-    border: 2px solid var(--terracotta);
-    background: repeating-linear-gradient(135deg, #efe3ca, #efe3ca 10px, #e9dcc0 10px, #e9dcc0 20px);
-  }
-  .game-prize-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-
   .visitor-counter{
     display:flex;
     align-items:stretch;
@@ -1316,50 +1181,6 @@
     .stat-pill .stat-number{ font-size:17px; }
   }
 
-  .game-home-card{
-    background: linear-gradient(180deg, #fdf3e2, #fbf6ec);
-    border: 1.5px dashed var(--terracotta);
-    border-radius: 20px;
-    padding: 20px 22px 22px;
-    text-align:center;
-    margin-bottom: 22px;
-  }
-
-  .game-cart-trigger{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    width:100%;
-    background: linear-gradient(160deg, var(--terracotta), var(--terracotta-deep));
-    color:#fff;
-    border:none;
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    font-size:14px;
-    padding: 12px 16px;
-    border-radius: 999px;
-    cursor:pointer;
-    box-shadow: 0 6px 16px rgba(180,85,48,0.3);
-  }
-  .game-cart-hint{
-    font-family:'Cairo', sans-serif;
-    font-size:12.5px;
-    color: var(--muted);
-    text-align:center;
-    padding: 6px 4px;
-    line-height:1.8;
-  }
-  .game-cart-done{
-    font-family:'Cairo', sans-serif;
-    font-weight:700;
-    font-size:12.5px;
-    color: var(--olive-deep);
-    text-align:center;
-    padding: 6px 4px;
-  }
-  @media (max-width: 560px){
-    .game-box{ width:64px; height:64px; font-size:28px; }
-  }
-
-  /* ===== قسم آراء العملاء بالصفحة الرئيسية ===== */
   .home-reviews-section{
     margin-top: 50px;
   }
@@ -1443,7 +1264,7 @@
 </head>
 <body>
 
-<a class="top-announcement" href="" target="_blank" rel="noopener">
+<a class="top-announcement" href="https://ehsan.sa" target="_blank" rel="noopener">
   🤍 نتبرع بجزء من أرباح كل طلب لمنصة إحسان الخيرية
 </a>
 
@@ -1456,7 +1277,10 @@
   </div>
   <span class="eyebrow">تجفيف طبيعي · بدون سكر مضاف</span>
   <p class="sub">شرائح فواكه مجففة طازجة، مقرمشة وغنية بالنكهة — تُباع بالوزن، كل صنف بسعره الموضّح تحت الصورة.</p>
- 
+  <a class="header-order-btn" href="https://wa.me/966579705068" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+    تواصل معنا عبر واتساب
+  </a>
 
   <div class="visitor-counter">
     <div class="stat-pill">
@@ -1482,42 +1306,6 @@
 </header>
 
 <main>
-
-  <div class="game-home-card">
-    <div class="game-title">🎁 العب واربح هدية مجانية!</div>
-    <div class="game-desc">اختر صندوق من الثلاثة وشوف وش ربحت</div>
-    <div id="game-home-area"></div>
-  </div>
-
-  <div class="feature-card national-day category-section" data-category="العروض" style="display:none;">
-    <span class="new-badge">🇸🇦 اليوم الوطني</span>
-    <div class="feature-photo">
-      <img src="" alt="بوكس اليوم الوطني" loading="lazy" onerror="this.setAttribute('data-broken','1')">
-      <div class="placeholder"><span class="icon">🇸🇦</span>images/national-day-box.jpg</div>
-    </div>
-    <div class="feature-body">
-      <div class="feature-title">بوكس اليوم الوطني</div>
-      <div class="feature-desc">بوكس احتفالي بمناسبة اليوم الوطني يجمع 8 أصناف من ألذ فواكهنا المجففة.</div>
-      <div class="national-day-list">
-        <span>موز</span>
-        <span>بشن فروت</span>
-        <span>كيوي</span>
-        <span>دراجن فروت</span>
-        <span>شمندر</span>
-        <span>برتقال</span>
-        <span>تين</span>
-        <span>فروله</span>
-      </div>
-      <div class="feature-price-row">
-        <div class="price-badge">96<span class="cur">ريال</span></div>
-        <div class="price-note">8 أصناف ثابتة</div>
-      </div>
-      <button class="btn-order-feature" onclick="addToCart('بوكس اليوم الوطني (موز، بشن فروت، كيوي، دراجن فروت، شمندر، برتقال، تين، فروله)',96,this)">
-        <svg viewBox="0 0 24 24"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4l-3.87 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/></svg>
-        أضف للسلة
-      </button>
-    </div>
-  </div>
 
   <div class="feature-card category-section" data-category="العروض" style="display:none;">
     <span class="new-badge">منتج جديد</span>
@@ -1794,7 +1582,6 @@
   <div class="divider"><div class="line"></div><div class="label">حوامض</div><div class="line"></div></div>
 
   <div class="feature-card">
-    <span class="new-badge">عرض</span>
     <div class="feature-photo carousel" id="sour-marshmallow-carousel">
       <div class="carousel-track">
         <div class="carousel-slide active">
@@ -1814,18 +1601,17 @@
       </div>
     </div>
     <div class="feature-body">
-      <div class="feature-title">عرض: علبتين مارشميلو وحامض</div>
-      <div class="feature-desc">علبة أعواد مارشميلو + علبة أعواد حامض تختار نوعها بنفسك — بسعر عرض للعلبتين مع بعض.</div>
+      <div class="feature-title">كيس مارشميلو وكيس حامض</div>
+      <div class="feature-desc">كيس أعواد مارشميلو + كيس أعواد حامض تختار نوعه بنفسك — الكيسين مع بعض بسعر ثابت.</div>
       <div class="feature-price-row">
         <div class="price-badge">12<span class="cur">ريال</span></div>
-        <div class="price-note">علبتين (مارشميلو + حامض)</div>
+        <div class="price-note">كيسين (مارشميلو + حامض)</div>
       </div>
       <div class="flavor-picker">
-        <label for="sour-type-select">اختر نوع علبة الحامض:</label>
+        <label for="sour-type-select">اختر نوع كيس الحامض:</label>
         <select id="sour-type-select" class="flavor-select">
           <option value="حامض كهرباء">حامض كهرباء</option>
-          <option value="حلو">حلو</option>
-          <option value="نوعين مختلفين (كهرباء وحلو)">نوعين مختلفين (كهرباء وحلو)</option>
+          <option value="حامض حلو">حامض حلو</option>
         </select>
       </div>
       <button class="btn-order-feature" onclick="addSourMarshmallowOfferToCart()">
@@ -1978,11 +1764,6 @@
       </div>
 
       <div class="cv-section">
-        <div class="cv-section-title">🎁 العب واربح</div>
-        <div id="game-cart-area"></div>
-      </div>
-
-      <div class="cv-section">
         <div class="cv-section-title">طريقة الدفع والتوصيل</div>
         <div class="cv-payment-options">
           <label class="cv-payment-option">
@@ -2113,24 +1894,9 @@
   </div>
 </div>
 
-<!-- ===== مودال لعبة اختر الصندوق ===== -->
-<div class="game-modal-backdrop" id="game-modal-backdrop" onclick="if(event.target===this) closeGameModal();">
-  <div class="game-modal">
-    <button class="game-modal-close" onclick="closeGameModal()" aria-label="إغلاق">✕</button>
-    <div class="game-title">🎁  العب واربح هدية مجانية!</div>
-    <div class="game-desc">اختر صندوق من الثلاثة وشوف وش ربحت</div>
-    <div class="game-status" id="game-status"></div>
-    <div class="game-prize-photo" id="game-prize-photo" style="display:none;">
-      <img id="game-prize-img" src="" alt="">
-    </div>
-    <div class="game-boxes" id="game-boxes"></div>
-  </div>
-</div>
-
 <script>
   const CART_KEY = "rawae_cart_v1";
   const WA_NUMBER = "966579705068";
-  const ORDER_MIN_TOTAL = 20;
   const DELIVERY = {
     cod: { price: 37, company: "جي اند تي إكسبريس", label: "الدفع عند الاستلام" },
     transfer: { price: 25, company: "إكسبرس", label: "تحويل بنكي" }
@@ -2151,10 +1917,6 @@
   }
 
   function lineSubtotal(item){
-    if(item.freeQty){
-      const paidQty = Math.max(0, item.qty - item.freeQty);
-      return paidQty * item.regularPrice;
-    }
     return item.price * item.qty;
   }
 
@@ -2197,14 +1959,6 @@
     }
   }
 
-  function addGiftToCart(giftName, regularPrice){
-    const existing = cart.find(item => item.name === giftName);
-    if(existing){ existing.qty += 1; }
-    else{ cart.push({ name: giftName, price: 0, qty: 1, freeQty: 1, regularPrice: regularPrice }); }
-    saveCart();
-    updateCartFab();
-  }
-
   function addCoffeeToCart(){
     const select = document.getElementById('coffee-flavor-select');
     const flavor = select.value;
@@ -2212,10 +1966,11 @@
   }
 
   function addSourMarshmallowOfferToCart(){
-    const select = document.getElementById('sour-type-select');
-    const type = select.value;
-    addToCart(`عرض علبتين (مارشميلو + حامض ${type})`, 12);
+    const type = document.getElementById('sour-type-select').value;
+    addToCart(`كيسين (مارشميلو + ${type})`, 12);
   }
+
+
 
   function goToCarouselSlide(carousel, newIndex){
     const slides = carousel.querySelectorAll('.carousel-slide');
@@ -2256,15 +2011,6 @@
   const sb = (SUPABASE_URL.startsWith('http') && window.supabase)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
-
-  function getDeviceId(){
-    let id = localStorage.getItem('rawae_device_id');
-    if(!id){
-      id = 'dev_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
-      try{ localStorage.setItem('rawae_device_id', id); }catch(e){}
-    }
-    return id;
-  }
 
   /* ===== بانر الإعلانات (من قاعدة البيانات) ===== */
   function escapeAttr(str){
@@ -2359,125 +2105,6 @@
     }
   }
 
-  /* ===== لعبة اختر الصندوق ===== */
-  const GAME_PRIZES = [
-    { name: "فروله",     price: 15, img: "ad233c1d-27f1-4345-aa04-2c6ff3a56548-1000x1000-6PlLbn0ppft4bQmHlX6PmrLkY3fz2xcRxn8LeXao.jpg" },
-    { name: "كيوي",      price: 15, img: "2cf0f543-04f2-4e4a-9fb2-74d95525835f-500x500-L1yCeGhmDUl9dEL9wKGGVgUD0ZuNNQw14LKZyVeP.webp" },
-    { name: "برتقال",    price: 15, img: "noOzQAVsLmH7Lohn0PFw2TRzlWi3NmA5S7cZPQws.webp" },
-    { name: "توت كبير",  price: 15, img: "92c60d86-60ce-4710-a688-fb6b648a0c74-1000x1000-DMR2PT2RHN9ut7r1dS2Q0WLX3cvKjR1U9I54OgKR.webp" },
-    { name: "تين مجفف",  price: 15, img: "0d6c0f7b-832f-49ab-8d4e-ddee82370fa8-800x1000-HZSSKkrBTYZedQl2Ap0VoqT5576nSCxlM4hmOEo9.webp" },
-    { name: "شمندر",     price: 15, img: "da41194e-dc86-4e02-bc08-117b72ba3fe7-thumbnail-1000x1000-70.webp" }
-  ];
-
-  async function getGameAttemptsLeft(){
-    if(!sb) return 3;
-    const deviceId = getDeviceId();
-    try{
-      const { data, error } = await sb
-        .from('game_attempts')
-        .select('attempts_left')
-        .eq('device_id', deviceId)
-        .maybeSingle();
-      if(error) throw error;
-      if(!data){
-        await sb.from('game_attempts').insert({ device_id: deviceId, attempts_left: 3 });
-        return 3;
-      }
-      return data.attempts_left;
-    }catch(e){
-      console.error('game attempts read error', e);
-      return 3;
-    }
-  }
-
-  async function decrementGameAttempt(currentLeft){
-    if(!sb) return Math.max(0, currentLeft - 1);
-    const deviceId = getDeviceId();
-    const newVal = Math.max(0, currentLeft - 1);
-    try{
-      await sb.from('game_attempts').update({ attempts_left: newVal }).eq('device_id', deviceId);
-    }catch(e){
-      console.error('game attempts update error', e);
-    }
-    return newVal;
-  }
-
-  async function renderGameAreaInto(elId){
-    const areaEl = document.getElementById(elId);
-    if(!areaEl) return;
-    const attemptsLeft = await getGameAttemptsLeft();
-
-    if(attemptsLeft <= 0){
-      areaEl.innerHTML = `<div class="game-cart-done">🎉 خلصت محاولاتك، نتمنى لك تسوق ممتع!</div>`;
-      return;
-    }
-    areaEl.innerHTML = `<button class="game-cart-trigger" onclick="openGameModal()">🎁 العب واربح هدية مجانية (${attemptsLeft} محاولات)</button>`;
-  }
-
-  async function updateGameAreas(){
-    await renderGameAreaInto('game-cart-area');
-    await renderGameAreaInto('game-home-area');
-  }
-
-  function openGameModal(){
-    const backdrop = document.getElementById('game-modal-backdrop');
-    const prizePhoto = document.getElementById('game-prize-photo');
-    prizePhoto.style.display = 'none';
-    backdrop.classList.add('open');
-    renderGameBoxes();
-  }
-
-  function closeGameModal(){
-    document.getElementById('game-modal-backdrop').classList.remove('open');
-    renderCartView();
-  }
-
-  async function renderGameBoxes(){
-    const statusEl = document.getElementById('game-status');
-    const boxesEl = document.getElementById('game-boxes');
-    const prizePhoto = document.getElementById('game-prize-photo');
-    statusEl.textContent = 'لحظات...';
-    boxesEl.innerHTML = '';
-    prizePhoto.style.display = 'none';
-    const attemptsLeft = await getGameAttemptsLeft();
-    if(attemptsLeft <= 0){
-      statusEl.textContent = "خلصت محاولاتك 🎉 نتمنى لك تسوق ممتع!";
-      boxesEl.innerHTML = '';
-      return;
-    }
-    statusEl.textContent = `عندك ${attemptsLeft} محاولات متبقية — اختر صندوق:`;
-    boxesEl.innerHTML = [0,1,2].map(() => `<button class="game-box" onclick="pickGameBox(this)">📦</button>`).join('');
-  }
-
-  async function pickGameBox(btnEl){
-    const boxesEl = document.getElementById('game-boxes');
-    const statusEl = document.getElementById('game-status');
-    const prizePhoto = document.getElementById('game-prize-photo');
-    const prizeImg = document.getElementById('game-prize-img');
-    let attemptsLeft = await getGameAttemptsLeft();
-    if(attemptsLeft <= 0) return;
-
-    boxesEl.querySelectorAll('.game-box').forEach(b => b.disabled = true);
-    btnEl.textContent = '🎁';
-
-    const prize = GAME_PRIZES[Math.floor(Math.random() * GAME_PRIZES.length)];
-    const giftName = `🎁 هدية: ${prize.name} (الأولى مجانية)`;
-    addGiftToCart(giftName, prize.price);
-
-    prizeImg.src = prize.img;
-    prizeImg.alt = prize.name;
-    prizePhoto.style.display = 'block';
-
-    attemptsLeft = await decrementGameAttempt(attemptsLeft);
-    statusEl.textContent = `🎉 مبروك! ربحت: ${prize.name} مجانًا — انضافت لسلتك. لازم يعدي طلبك ${ORDER_MIN_TOTAL} ريال عشان تقدر تطلب.`;
-
-    if(document.getElementById('view-cart').style.display === 'block'){
-      renderCartView();
-    } else {
-      updateGameAreas();
-      updateCartFab();
-    }
-  }
   function enforceFamilyLimit(){
     const boxes = document.querySelectorAll('.family-checkbox');
     const checkedCount = document.querySelectorAll('.family-checkbox:checked').length;
@@ -2656,7 +2283,7 @@
       <div class="cv-line">
         <div class="cv-line-info">
           <div class="cv-line-name">${item.name}</div>
-          <div class="cv-line-price">${item.freeQty ? `أول وحدة مجانية، وبعدها ${item.regularPrice} ريال للوحدة` : `${item.price} ريال للوحدة`}</div>
+          <div class="cv-line-price">${item.price} ريال للوحدة</div>
         </div>
         <div class="cv-qty">
           <button onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
@@ -2702,18 +2329,7 @@
     updateDiscountUI();
 
     const checkoutHint = document.getElementById('cv-checkout-hint');
-    const hasGift = cart.some(i => i.freeQty);
-    const belowMin = hasGift && productsTotal < ORDER_MIN_TOTAL;
-    checkoutBtn.disabled = !selectedPayment || belowMin;
-    if(checkoutHint){
-      if(belowMin){
-        checkoutHint.className = 'min-order-banner';
-        checkoutHint.textContent = `🎁 فزت بهدية! لازم طلبك يوصل ${ORDER_MIN_TOTAL} ريال عشان تقدر تطلب — ينقصك ${ORDER_MIN_TOTAL - productsTotal} ريال`;
-      } else {
-        checkoutHint.className = 'cv-hint';
-        checkoutHint.textContent = 'اختر طريقة الدفع قبل إتمام الطلب';
-      }
-    }
+    checkoutBtn.disabled = !selectedPayment;
 
     const donationItem = cart.find(i => i.name === 'تبرع - منصة إحسان');
     document.querySelectorAll('.donation-chip').forEach(b => {
@@ -2723,15 +2339,12 @@
       b.classList.toggle('active', isActive);
     });
 
-    updateGameAreas();
     updateCartFab();
   }
 
   function checkout(){
     if(cart.length === 0 || !selectedPayment) return;
     const productsTotal = cartTotal();
-    const hasGift = cart.some(i => i.freeQty);
-    if(hasGift && productsTotal < ORDER_MIN_TOTAL) return;
     const deliveryInfo = DELIVERY[selectedPayment];
     const deliveryFee = deliveryInfo.price;
     const discount = calcDiscount();
@@ -2878,7 +2491,6 @@
     document.getElementById('view-menu').style.display = 'block';
     window.scrollTo(0, 0);
     currentProduct = null;
-    updateGameAreas();
   }
 
   function renderRelatedProducts(cardEl){
@@ -3077,7 +2689,6 @@
   });
 
   loadCart();
-  updateGameAreas();
   initVisitorCounter();
   initOrderCounter();
   loadHomeReviews();
