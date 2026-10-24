@@ -2134,13 +2134,30 @@
     const el = document.getElementById('visitor-count-number');
     if(!el) return;
     if(!sb){ el.textContent = '—'; return; }
+    // الجوال يُحسب زيارة وحدة في اليوم (بتوقيت السعودية)، حتى لو أعاد تحميل الصفحة
+    const KEY = 'rawae_visit_day';
+    let today = '';
+    try{ today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Riyadh' }); }
+    catch(e){ today = new Date().toISOString().slice(0, 10); }
+    let countedToday = false;
+    try{ countedToday = localStorage.getItem(KEY) === today; }catch(e){}
+    const cached = () => { try{ return localStorage.getItem('rawae_visits_cache'); }catch(e){ return null; } };
     try{
-      const { data, error } = await sb.rpc('increment_visits');
+      let data, error;
+      if(countedToday){
+        ({ data, error } = await sb.rpc('get_visits_count'));
+      } else {
+        // نسجّل اليوم قبل الطلب عشان إعادة التحميل السريعة ما تتكرر
+        try{ localStorage.setItem(KEY, today); }catch(e){}
+        ({ data, error } = await sb.rpc('increment_visits'));
+        if(error){ try{ localStorage.removeItem(KEY); }catch(e){} }
+      }
       if(error) throw error;
       el.textContent = data;
+      try{ localStorage.setItem('rawae_visits_cache', String(data)); }catch(e){}
     }catch(e){
       console.error('visitor counter error', e);
-      el.textContent = '—';
+      el.textContent = cached() || '—';
     }
   }
 
