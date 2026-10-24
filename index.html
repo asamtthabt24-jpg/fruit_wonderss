@@ -2177,11 +2177,13 @@
   }
 
   /* ===== أكواد الخصم ===== */
-  let appliedDiscount = null; // { code, type, value, min_order }
+  let appliedDiscount = null; // { code, type, value, min_order, applies_to }
 
   function eligibleSubtotal(){
+    const onlyFamily = appliedDiscount && appliedDiscount.applies_to === 'family';
     return cart
       .filter(i => i.name !== 'تبرع - منصة إحسان')
+      .filter(i => !onlyFamily || i.name.startsWith('مجموعة عائلية'))
       .reduce((sum, i) => sum + lineSubtotal(i), 0);
   }
 
@@ -2189,6 +2191,10 @@
     if(!appliedDiscount) return 0;
     const base = eligibleSubtotal();
     if(base <= 0 || base < appliedDiscount.min_order) return 0;
+    if(appliedDiscount.type === 'free_delivery'){
+      const info = selectedPayment ? DELIVERY[selectedPayment] : null;
+      return info ? info.price : 0;
+    }
     const raw = appliedDiscount.type === 'percent'
       ? base * appliedDiscount.value / 100
       : appliedDiscount.value;
@@ -2208,16 +2214,27 @@
     if(applyBtn) applyBtn.textContent = appliedDiscount ? 'إزالة' : 'تطبيق';
     if(inputEl) inputEl.disabled = !!appliedDiscount;
     if(!appliedDiscount) return;
-    const label = appliedDiscount.type === 'percent'
+    const isFreeDelivery = appliedDiscount.type === 'free_delivery';
+    const label = isFreeDelivery ? 'توصيل مجاني'
+      : appliedDiscount.type === 'percent'
       ? `${appliedDiscount.value}%`
       : `${appliedDiscount.value} ريال`;
     const base = eligibleSubtotal();
-    if(base < appliedDiscount.min_order){
+    if(appliedDiscount.applies_to === 'family' && base <= 0){
+      setDiscountMessage(`الكود ${appliedDiscount.code} خاص بالمجموعة العائلية — أضفها للسلة عشان ينطبق الخصم`, 'warn');
+    } else if(base < appliedDiscount.min_order){
       setDiscountMessage(`الكود ${appliedDiscount.code} (خصم ${label}) يحتاج طلب ${appliedDiscount.min_order} ريال — ينقصك ${appliedDiscount.min_order - base} ريال`, 'warn');
     } else {
-      setDiscountMessage(`✓ تم تطبيق ${appliedDiscount.code} — خصم ${label}`, 'ok');
+      setDiscountMessage(isFreeDelivery && !selectedPayment
+        ? `✓ تم تطبيق ${appliedDiscount.code} — توصيل مجاني (اختر طريقة الدفع ليظهر الخصم)`
+        : `✓ تم تطبيق ${appliedDiscount.code} — ${isFreeDelivery ? label : 'خصم ' + label}`, 'ok');
     }
   }
+
+  // أكواد مضمّنة في الموقع (تشتغل بدون قاعدة البيانات)
+  const BUILTIN_CODES = {
+    'RAWAE10': { code: 'RAWAE10', type: 'free_delivery', value: 1, min_order: 100, applies_to: null }
+  };
 
   async function toggleDiscountCode(){
     const inputEl = document.getElementById('discount-input');
@@ -2230,6 +2247,12 @@
     }
     const code = inputEl ? inputEl.value.trim() : '';
     if(!code){ setDiscountMessage('اكتب كود الخصم أول', 'err'); return; }
+    const builtin = BUILTIN_CODES[code.toUpperCase()];
+    if(builtin){
+      appliedDiscount = Object.assign({}, builtin);
+      renderCartView();
+      return;
+    }
     if(!sb){ setDiscountMessage('أكواد الخصم غير متاحة حاليًا', 'err'); return; }
     const btn = document.getElementById('discount-apply-btn');
     if(btn) btn.disabled = true;
@@ -2243,7 +2266,8 @@
           code: data.code,
           type: data.type,
           value: Number(data.value),
-          min_order: Number(data.min_order) || 0
+          min_order: Number(data.min_order) || 0,
+          applies_to: data.applies_to || null
         };
         renderCartView();
       }
@@ -2255,7 +2279,7 @@
   }
 
   async function redeemDiscountCode(code){
-    if(!sb) return;
+    if(!sb || BUILTIN_CODES[String(code).toUpperCase()]) return;
     try{ await sb.rpc('redeem_discount_code', { p_code: code }); }
     catch(e){ console.error('discount redeem error', e); }
   }
@@ -2320,7 +2344,7 @@
     if(discountRow){
       if(discount > 0){
         discountRow.style.display = 'flex';
-        document.getElementById('cv-discount-label').textContent = `خصم (${appliedDiscount.code})`;
+        document.getElementById('cv-discount-label').textContent = `${appliedDiscount.type === 'free_delivery' ? 'توصيل مجاني' : 'خصم'} (${appliedDiscount.code})`;
         document.getElementById('cv-discount-amount').textContent = '−' + discount + ' ريال';
       } else {
         discountRow.style.display = 'none';
